@@ -1,12 +1,13 @@
 <?php
-require_once 'services/autentikasi_service.php';
-require_once 'validators/register_validator.php';
+require_once "auth_middleware.php";
+require_once "services/autentikasi_service.php";
+require_once "validators/register_validator.php";
 
-if (isset($_POST['submit'])) {
-	$username = $_POST['username'];
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$konfirmasiPassword = $_POST['konfirmasi-password'];
+if (isset($_POST["submit"])) {
+	$username = $_POST["username"];
+	$email = $_POST["email"];
+	$password = $_POST["password"];
+	$konfirmasiPassword = $_POST["konfirmasi-password"];
 
 	$errors = [];
 

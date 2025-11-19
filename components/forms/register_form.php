@@ -4,8 +4,8 @@
         <input type="text" name="username" id="username" value="<?= $username ?? "" ?>">
 
         <ul>
-            <?php if (isset($errors['username'])): ?>
-                <?php foreach ($errors['username'] as $error): ?>
+            <?php if (isset($errors["username"])): ?>
+                <?php foreach ($errors["username"] as $error): ?>
                     <li class="error-message">
                         <?= $error; ?>
                     </li>
@@ -19,8 +19,8 @@
         <input type="text" name="email" id="email" value="<?= $email ?? "" ?>">
 
         <ul>
-            <?php if (isset($errors['email'])): ?>
-                <?php foreach ($errors['email'] as $error): ?>
+            <?php if (isset($errors["email"])): ?>
+                <?php foreach ($errors["email"] as $error): ?>
                     <li class="error-message">
                         <?= $error; ?>
                     </li>
@@ -34,8 +34,8 @@
         <input type="password" name="password" id="password" value="<?= $password ?? "" ?>">
 
         <ul>
-            <?php if (isset($errors['password'])): ?>
-                <?php foreach ($errors['password'] as $error): ?>
+            <?php if (isset($errors["password"])): ?>
+                <?php foreach ($errors["password"] as $error): ?>
                     <li class="error-message">
                         <?= $error; ?>
                     </li>

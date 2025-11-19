@@ -1,4 +1,5 @@
 <?php
+require_once "auth_middleware.php";
 require_once "services/autentikasi_service.php";
 require_once "validators/login_validator.php";
 
