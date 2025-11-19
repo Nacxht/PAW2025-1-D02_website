@@ -1,6 +1,6 @@
 /* variabel warna */
 :root {
-    --teksdeskripsi: rgb(45, 45, 45);
+    --teks-deskripsi: rgb(45, 45, 45);
 }
 
 /*  */
@@ -20,7 +20,7 @@ h1.judul {
     font-size: xx-large;
 }
 
-p.deskripsi {
+p.description {
     color: var(--teks-deskripsi);
 }
 
