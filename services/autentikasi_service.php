@@ -61,7 +61,7 @@ function registerService(string $username, string $email, string $password, arra
                 ':calon_siswa' => 'calon_siswa'
             ]);
 
-            header("location: " . BASE_URL . "index.php");
+            header("location: " . BASE_URL . "login.php");
         } else {
             $errors["username"][] = "Username sudah ada!";
         }
