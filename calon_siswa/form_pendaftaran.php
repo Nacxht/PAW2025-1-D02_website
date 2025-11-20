@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../auth_middleware/after_login_middleware.php";
 require_once __DIR__ . '/../validators/form_pendaftaran_validator.php';
 require_once __DIR__ . '/../services/form_pendaftaran.php';
 
