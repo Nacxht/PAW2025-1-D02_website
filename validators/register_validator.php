@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "base_validator.php";
+require_once __DIR__ . "/base_validator.php";
 
 function validateUsername(string $field, array &$errors): void
 {
