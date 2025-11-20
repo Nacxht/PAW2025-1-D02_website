@@ -11,22 +11,42 @@ if (isset($_POST['submit'])) {
     $tempat_lahir = $_POST['tempat_lahir'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
     $asal_sekolah = $_POST['asal_sekolah'];
+
     $akta_kelahiran = $_FILES['akta_kelahiran'] ?? null;
     $kartu_keluarga = $_FILES['kartu_keluarga'] ?? null;
     $rapor = $_FILES['rapor'] ?? null;
     $surat_keterangan_lulus = $_FILES['surat_keterangan_lulus'] ?? null;
     $surat_kesehatan = $_FILES['surat_kesehatan'] ?? null;
     $pasfoto = $_FILES['pasfoto'] ?? null;
+
     $persetujuan_asrama = isset($_POST['persetujuan_asrama']) ? 1 : 0;
     $persetujuan_tidak_membawa_hp = isset($_POST['persetujuan_tidak_membawa_hp']) ? 1 : 0;
 
     $errors = [];
-    formPendaftaran($nama_lengkap, $nik, $tempat_lahir, $tanggal_lahir, $asal_sekolah, $akta_kelahiran, $kartu_keluarga, $rapor, $surat_keterangan_lulus, $surat_kesehatan, $pasfoto, $persetujuan_asrama, $persetujuan_tidak_membawa_hp);
+
+    validateNamaLengkap($nama_lengkap, $errors);
+    validateNik($nik, $errors);
+    validateJenisKelamin($jenis_kelamin, $errors);
+    validateTempatLahir($tempat_lahir, $errors);
+    validateTanggalLahir($tanggal_lahir, $errors);
+    validateAsalSekolah($asal_sekolah, $errors);
+    validateAktaKelahiran($akta_kelahiran, $errors);
+    validateKartuKeluarga($kartu_keluarga, $errors);
+    validateRapor($rapor, $errors);
+    validateSuratKeteranganLulus($surat_keterangan_lulus, $errors);
+    validateSuratKesehatan($surat_kesehatan, $errors);
+    validatePasfoto($pasfoto, $errors);
+    validatePersetujuanAsrama($persetujuan_asrama, $errors);
+    validatePersetujuanTidakMembawaHp($persetujuan_tidak_membawa_hp, $errors);
+
+    if (empty($errors)) {
+        formPendaftaran($nama_lengkap, $nik, $jenis_kelamin, $tempat_lahir, $tanggal_lahir, $asal_sekolah, $akta_kelahiran, $kartu_keluarga, $rapor, $surat_keterangan_lulus, $surat_kesehatan, $pasfoto, $persetujuan_tidak_membawa_hp, $persetujuan_asrama);
+    }
 }
 
 ?>
 <form method="POST" enctype="multipart/form-data">
-    <div class="input-container"><label id="nama_lengkap">nama_lengkap : </label><input type="text" name="nama_lengkap" value="<?= $nama_lengkap ?? '' ?>"><?php if (isset($errors["nama_lengkap"])): ?>
+    <div class="input-container"><label id="nama_lengkap">Nama lengkap : </label><input type="text" name="nama_lengkap" value="<?= $nama_lengkap ?? '' ?>"><?php if (isset($errors["nama_lengkap"])): ?>
             <ul>
                 <?php foreach ($errors["nama_lengkap"] as $error): ?>
                     <li class="error-message">
@@ -48,7 +68,12 @@ if (isset($_POST['submit'])) {
         <?php endif ?>
     </div>
     </div>
-    <div class="input-container"><label id="jenis_kelamin">jenis_kelamin : </label><input type="text" name="jenis_kelamin" value="<?= $jenis_kelamin ?? '' ?>"><?php if (isset($errors["jenis_kelamin"])): ?>
+    <div class="input-container"><label id="jenis_kelamin">jenis_kelamin : </label><select name="jenis_kelamin">
+            <option value="">- Jenis Kelamin -</option>
+            <option value="l" <?= (isset($jenis_kelamin) && $jenis_kelamin == 'l') ? 'selected' : '' ?>>Laki-Laki</option>
+            <option value="p" <?= (isset($jenis_kelamin) && $jenis_kelamin == 'p') ? 'selected' : '' ?>>Perempuan</option>
+        </select>
+        <?php if (isset($errors["jenis_kelamin"])): ?>
             <ul>
                 <?php foreach ($errors["jenis_kelamin"] as $error): ?>
                     <li class="error-message">
