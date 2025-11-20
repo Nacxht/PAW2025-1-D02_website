@@ -26,8 +26,8 @@ if (isset($_POST["login-submit"])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 
-	<link rel="stylesheet" href="assets/css/main.css">
-	<link rel="stylesheet" href="assets/css/login_register.css">
+	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
+	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/login_register.css" ?>">
 </head>
 
 <body>
