@@ -19,6 +19,7 @@ if (isset($_POST['submit'])) {
     $persetujuan_tidak_membawa_hp = isset($_POST['persetujuan_tidak_membawa_hp']) ? 1 : 0;
 
     $errors = [];
+    formPendaftaran($nama_lengkap, $nik, $tempat_lahir, $tanggal_lahir, $asal_sekolah, $akta_kelahiran, $kartu_keluarga, $rapor, $surat_keterangan_lulus, $surat_kesehatan, $pasfoto, $persetujuan_asrama, $persetujuan_tidak_membawa_hp);
 }
 
 ?>
