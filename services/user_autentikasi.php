@@ -1,8 +1,9 @@
-<?php 
+<?php
 require_once __DIR__ . '/../db_conn.php';
 
-function connUser(string $username, string $email, string $password){
-	try{
+function connUser(string $username, string $email, string $password)
+{
+	try {
 		$sqlCheckUsername = "SELECT * FROM users WHERE username = :username";
 		$stmtCheckUsername = DBH->prepare($sqlCheckUsername);
 		$stmtCheckUsername->execute([
@@ -10,7 +11,7 @@ function connUser(string $username, string $email, string $password){
 		]);
 
 		$user = $stmtCheckUsername->fetch();
-		if(!$user){
+		if (!$user) {
 			$hashPassword = password_hash($password, PASSWORD_DEFAULT);
 			$sql = "INSERT INTO users(username,email,password,role) VALUES(:username,:email,:password,:calon_siswa)";
 			$stmt = DBH->prepare($sql);
@@ -20,15 +21,11 @@ function connUser(string $username, string $email, string $password){
 				':password' => $hashPassword,
 				':calon_siswa' => 'calon_siswa'
 			]);
-
-		}else{
+		} else {
 			$akunSudahAda = 'Akun Sudah Ada';
 			echo $akunSudahAda;
 		}
-	}catch(pdoexception $e){
+	} catch (pdoexception $e) {
 		echo 'Error : ' . $e->getmessage();
 	}
 }
-
-
- ?>
