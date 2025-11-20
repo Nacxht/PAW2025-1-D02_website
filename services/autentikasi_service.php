@@ -2,8 +2,6 @@
 require_once "./db_conn.php";
 require_once "./config.php";
 
-session_start();
-
 function loginService(string $username, string $password, &$errors)
 {
     $stmt = DBH->prepare("

@@ -1,5 +1,5 @@
 <?php
-require_once "auth_middleware.php";
+require_once dirname(__FILE__) . "/auth_middleware/login_register_middleware.php";
 require_once "services/autentikasi_service.php";
 require_once "validators/register_validator.php";
 

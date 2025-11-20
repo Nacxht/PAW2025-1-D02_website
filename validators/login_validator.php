@@ -1,6 +1,5 @@
 <?php
 require_once "base_validator.php";
-require_once "./services/autentikasi_service.php";
 
 function validateUsername(string $field, array &$errors): void
 {
