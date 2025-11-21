@@ -12,9 +12,7 @@ function ambilRiwayatPendaftaran()
 		]);
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		// var_dump($data);
-		foreach ($data as $key) {
-			echo $key['id_form_pendaftaran'];
-		}
+		return $data;
 
 	} catch (PDOException $e) {
 		echo 'Error : ' . $e->getMessage();
