@@ -19,8 +19,11 @@ $data = ambilRiwayatPendaftaran();
 <body>
 	<h1>Riwayat Pendaftaran Anda</h1>
 
+
 	<?php foreach ($data as $dt): ?>
 		<div class="container">
+			<a href=""><p>Tanggal Daftar : <?= $dt['tanggal_daftar'] ?></p></a>
+			
 			<P>Nama Lengkap : <?= $dt['nama_lengkap'] ?></P>
 			<P>Nik : <?= $dt['nik'] ?></P>
 			<P>Jenis Kelamin : <?= $dt['jenis_kelamin'] ?></P>
@@ -28,12 +31,13 @@ $data = ambilRiwayatPendaftaran();
 			<P>Tanggal lahir : <?= $dt['tanggal_lahir'] ?></P>
 			<P>Asal Sekolah : <?= $dt['asal_sekolah'] ?></P>
 			<P>Jurusan : <?= $dt['jurusan'] ?></P>
-			<P>Akta Kelahiran : <a href="../assets/uploads/<?= $dt['akta_kelahiran'] ?? '' ?>">Lihat</a></P>
-			<P>Kartu Keluarga : <a href="../assets/uploads/<?= $dt['kartu_keluarga'] ?? '' ?>">Lihat</a></P>
-			<P>Rapor : <a href="../assets/uploads/<?= $dt['rapor'] ?? '' ?>">Lihat</a></P>
-			<P>Surat Keterangan Lulus : <a href="../assets/uploads/<?= $dt['surat_keterangan_lulus'] ?? '' ?>">Lihat</a></P>
-			<P>Surat Kesehatan :<a href="../assets/uploads/<?= $dt['surat_kesehatan'] ?? '' ?>">Lihat</a></P>
-			<P>Foto : <a href="../assets/uploads/<?= $dt['pasfoto'] ?? '' ?>">Lihat</a></P>
+			<P>Akta Kelahiran : <a href="../assets/uploads/<?=$dt['akta_kelahiran'] ?? '' ?>">Lihat</a></P>
+			<P>Kartu Keluarga : <a href="../assets/uploads/<?=$dt['kartu_keluarga'] ?? '' ?>">Lihat</a></P>
+			<P>Rapor : <a href="../assets/uploads/<?=$dt['rapor'] ?? '' ?>">Lihat</a></P>
+			<P>Surat Keterangan Lulus : <a href="../assets/uploads/<?=$dt['surat_keterangan_lulus'] ?? '' ?>">Lihat</a></P>
+			<P>Surat Kesehatan :<a href="../assets/uploads/<?=$dt['surat_kesehatan'] ?? '' ?>">Lihat</a></P>
+			<P>Foto : <a href="../assets/uploads/<?=$dt['pasfoto'] ?? '' ?>">Lihat</a></P>
+			<p>=============================================</p>
 		</div>
 	<?php endforeach ?>
 
