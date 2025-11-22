@@ -19,3 +19,10 @@ function cekNumeric(string $field): bool
 
     return preg_match($regex, $field);
 }
+
+function cekAlpha(string $field)
+{
+    $regex = '/^[a-zA-Z ]+$/';
+
+    return preg_match($regex, $field);
+}

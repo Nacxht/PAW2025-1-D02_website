@@ -11,7 +11,7 @@ require_once __DIR__ . "/../auth_middleware/after_login_middleware.php";
 </head>
 <body>
 	<p>
-		<?=$_SESSION['id_user'] ?>
+		<h1>Selamat Datang <?= $_SESSION['username']?></h1>
 	</p>
 </body>
 </html>

@@ -6,6 +6,9 @@ function validateNamaLengkap(string $field, array &$errors)
     if (cekFieldKosong($field)) {
         $errors["nama_lengkap"][] = "Nama Lengkap Tidak Boleh Kosong";
     }
+    if (!cekAlpha($field) || cekFieldKosong($field)){
+        $errors["nama_lengkap"][] = "Nama Lengkap Hanya huruf";
+    }
 }
 
 function validateNik(string $field, array &$errors)
@@ -50,6 +53,14 @@ function validateAsalSekolah(string $field, array &$errors)
         $errors["asal_sekolah"][] = "Asal Sekolah Tidak Boleh Kosong";
     }
 }
+
+function validateJurusan(string $field, array &$errors)
+{
+    if (cekFieldKosong($field)) {
+        $errors["jurusan"][] = "Jurusan Tidak Boleh Kosong";
+    }
+}
+
 
 function validateAktaKelahiran( $field, array &$errors)
 {

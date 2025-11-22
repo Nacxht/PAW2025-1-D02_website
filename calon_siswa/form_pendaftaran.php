@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     $tempat_lahir = $_POST['tempat_lahir'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
     $asal_sekolah = $_POST['asal_sekolah'];
+    $jurusan = $_POST['jurusan'];
 
     $akta_kelahiran = $_FILES['akta_kelahiran'] ?? null;
     $kartu_keluarga = $_FILES['kartu_keluarga'] ?? null;
@@ -30,6 +31,7 @@ if (isset($_POST['submit'])) {
     validateTempatLahir($tempat_lahir, $errors);
     validateTanggalLahir($tanggal_lahir, $errors);
     validateAsalSekolah($asal_sekolah, $errors);
+    validateJurusan($jurusan, $errors);
     validateAktaKelahiran($akta_kelahiran, $errors);
     validateKartuKeluarga($kartu_keluarga, $errors);
     validateRapor($rapor, $errors);
@@ -40,7 +42,7 @@ if (isset($_POST['submit'])) {
     validatePersetujuanTidakMembawaHp($persetujuan_tidak_membawa_hp, $errors);
 
     if (empty($errors)) {
-        formPendaftaran($nama_lengkap, $nik, $jenis_kelamin, $tempat_lahir, $tanggal_lahir, $asal_sekolah, $akta_kelahiran, $kartu_keluarga, $rapor, $surat_keterangan_lulus, $surat_kesehatan, $pasfoto, $persetujuan_tidak_membawa_hp, $persetujuan_asrama);
+        formPendaftaran($nama_lengkap, $nik, $jenis_kelamin, $tempat_lahir, $tanggal_lahir, $asal_sekolah,$jurusan, $akta_kelahiran, $kartu_keluarga, $rapor, $surat_keterangan_lulus, $surat_kesehatan, $pasfoto, $persetujuan_tidak_membawa_hp, $persetujuan_asrama);
     }
 }
 
@@ -109,6 +111,22 @@ if (isset($_POST['submit'])) {
     <div class="input-container"><label id="asal_sekolah">asal_sekolah : </label><input type="text" name="asal_sekolah" value="<?= $asal_sekolah ?? '' ?>"><?php if (isset($errors["asal_sekolah"])): ?>
             <ul>
                 <?php foreach ($errors["asal_sekolah"] as $error): ?>
+                    <li class="error-message">
+                        <?= $error ?>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        <?php endif ?>
+    </div>
+    </div>
+    <div class="input-container"><label id="jurusan">Jurusan : </label>
+        <select name="jurusan">
+            <option value="">- Jurusan -</option>
+            <option value="Teknik Mesin" <?= (isset($jurusan) && $jurusan == 'Teknik Mesin') ? 'selected' : '' ?>>Teknik Mesin</option>
+        </select>
+        <?php if (isset($errors["jurusan"])): ?>
+            <ul>
+                <?php foreach ($errors["jurusan"] as $error): ?>
                     <li class="error-message">
                         <?= $error ?>
                     </li>

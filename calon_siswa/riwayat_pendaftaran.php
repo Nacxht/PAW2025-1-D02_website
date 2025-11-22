@@ -24,9 +24,10 @@ $data = ambilRiwayatPendaftaran();
 			<P>Nama Lengkap : <?= $dt['nama_lengkap'] ?></P>
 			<P>Nik : <?= $dt['nik'] ?></P>
 			<P>Jenis Kelamin : <?= $dt['jenis_kelamin'] ?></P>
-			<P>Tempat Lahir : <?= $dt['nama_lengkap'] ?></P>
-			<P>Tanggal lahir : <?= $dt['nama_lengkap'] ?></P>
-			<P>Asal Sekolah : <?= $dt['nik'] ?></P>
+			<P>Tempat Lahir : <?= $dt['tempat_lahir'] ?></P>
+			<P>Tanggal lahir : <?= $dt['tanggal_lahir'] ?></P>
+			<P>Asal Sekolah : <?= $dt['asal_sekolah'] ?></P>
+			<P>Jurusan : <?= $dt['jurusan'] ?></P>
 			<P>Akta Kelahiran : <a href="../assets/uploads/<?= $dt['akta_kelahiran'] ?? '' ?>">Lihat</a></P>
 			<P>Kartu Keluarga : <a href="../assets/uploads/<?= $dt['kartu_keluarga'] ?? '' ?>">Lihat</a></P>
 			<P>Rapor : <a href="../assets/uploads/<?= $dt['rapor'] ?? '' ?>">Lihat</a></P>

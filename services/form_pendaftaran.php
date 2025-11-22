@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db_conn.php';
 
-function formPendaftaran(string $nama_lengkap, string $nik, string $jenis_kelamin, string $tempat_lahir, string $tanggal_lahir, string $asal_sekolah, array $akta_kelahiran, array $kartu_keluarga, array $rapor, array $surat_keterangan_lulus, array $surat_kesehatan, array $pasfoto, string $persetujuan_tidak_membawa_hp, string $persetujuan_asrama)
+function formPendaftaran(string $nama_lengkap, string $nik, string $jenis_kelamin, string $tempat_lahir, string $tanggal_lahir, string $asal_sekolah,string $jurusan, array $akta_kelahiran, array $kartu_keluarga, array $rapor, array $surat_keterangan_lulus, array $surat_kesehatan, array $pasfoto, string $persetujuan_tidak_membawa_hp, string $persetujuan_asrama)
 {
     try {
         $folder = __DIR__ . "/../assets/uploads/";
@@ -26,10 +26,9 @@ function formPendaftaran(string $nama_lengkap, string $nik, string $jenis_kelami
         move_uploaded_file($surat_kesehatan['tmp_name'], $folder . $name_surat_kesehatan);
         move_uploaded_file($pasfoto['tmp_name'], $folder . $name_pasfoto);
 
-        $sql_user = 'SELECT id_user FROM users ';
 
-        $sql = "INSERT INTO form_pendaftaran(id_user,nama_lengkap, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, asal_sekolah, akta_kelahiran, kartu_keluarga, rapor,surat_keterangan_lulus, surat_kesehatan, pasfoto, persetujuan_tidak_membawa_hp, persetujuan_asrama)
-        VALUES (:id_user,:nama_lengkap,:nik,:jenis_kelamin,:tempat_lahir,:tanggal_lahir,:asal_sekolah,:akta_kelahiran,:kartu_keluarga,:rapor,:surat_keterangan_lulus,:surat_kesehatan,:pasfoto,:persetujuan_tidak_membawa_hp,:persetujuan_asrama)";
+        $sql = "INSERT INTO form_pendaftaran(id_user,nama_lengkap, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, asal_sekolah,jurusan, akta_kelahiran, kartu_keluarga, rapor,surat_keterangan_lulus, surat_kesehatan, pasfoto, persetujuan_tidak_membawa_hp, persetujuan_asrama)
+        VALUES (:id_user,:nama_lengkap,:nik,:jenis_kelamin,:tempat_lahir,:tanggal_lahir,:asal_sekolah,:jurusan,:akta_kelahiran,:kartu_keluarga,:rapor,:surat_keterangan_lulus,:surat_kesehatan,:pasfoto,:persetujuan_tidak_membawa_hp,:persetujuan_asrama)";
 
         $stmt = DBH->prepare($sql);
         // ubah ini jadi $_SESSION['id_user']
@@ -41,6 +40,7 @@ function formPendaftaran(string $nama_lengkap, string $nik, string $jenis_kelami
             ':tempat_lahir' => $tempat_lahir,
             ':tanggal_lahir' => $tanggal_lahir,
             ':asal_sekolah' => $asal_sekolah,
+            ':jurusan' => $jurusan,
             ':akta_kelahiran' => $name_akta_kelahiran,
             ':kartu_keluarga' => $name_kartu_keluarga,
             ':rapor' => $name_rapor,
