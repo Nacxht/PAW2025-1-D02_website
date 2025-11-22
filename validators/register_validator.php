@@ -7,8 +7,8 @@ function validateUsername(string $field, array &$errors): void
         $errors["username"][] = "Username Wajib diisi";
     }
 
-    if (!cekAlphaNumeric($field)) {
-        $errors["username"][] = "Username hanya bisa alpa numerik";
+    if (!cekAlpha($field)) {
+        $errors["username"][] = "Username hanya Huruf";
     }
 
     if (strlen($field) < 3) {
@@ -40,7 +40,11 @@ function validatePassword(string $field, array &$errors): void
 
 function validateKonfirmasiPassword(string $field, string $passwordField, array &$errors): void
 {
+    if (cekFieldKosong($field)) {
+        $errors["konfirmasi-password"][] = "Konfirmasi Password Wajib diisi";
+    }
+
     if ($passwordField !== $field) {
-        $errors["konfirmasi-password"][] = "Password tidak sama";
+        $errors["konfirmasi-password"][] = "Konfirmasi Password tidak sama";
     }
 }
