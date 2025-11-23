@@ -1,7 +1,62 @@
+/* variabel-variabel css */
+:root {
+    /* warna primer */
+    --color-primary: oklch(85% 0.138 181.071);
+    --color-primary-hover: oklch(80% 0.138 181.071);
+    --color-primary-text: oklch(43% 0.078 188.216);
+
+    /* warna sekunder */
+    --color-secondary: oklch(89% 0.061 343.231);
+    --color-secondary-hover: oklch(84% 0.061 343.231);
+    --color-secondary-text: oklch(45% 0.187 3.815);
+
+    /* warna aksen */
+    --color-accent: oklch(90% 0.076 70.697);
+    --color-accent-hover: oklch(85% 0.076 70.697);
+    --color-accent-text: oklch(47% 0.157 37.304);
+
+    /* warna netral */
+    --color-neutral: oklch(27% 0.006 286.033);
+    --color-neutral-hover: oklch(22% 0.006 286.033);
+    --color-neutral-text: oklch(92% 0.004 286.32);
+
+    /* warna dasar */
+    --color-base-100: oklch(97.788% 0.004 56.375);
+    --color-base-200: oklch(93.982% 0.007 61.449);
+    --color-base-300: oklch(91.586% 0.006 53.44);
+    --color-base-text: oklch(23.574% 0.066 313.189);
+
+    /* warna status info */
+    --color-info: oklch(68% 0.169 237.323);
+    --color-info-hover: oklch(63% 0.169 237.323);
+    --color-info-text: oklch(29% 0.066 243.157);
+
+    /* warna status sukses */
+    --color-success: oklch(69% 0.17 162.48);
+    --color-success-hover: oklch(64% 0.17 162.48);
+    --color-success-text: oklch(26% 0.051 172.552);
+
+    /* warna status peringatan */
+    --color-warning: oklch(79% 0.184 86.047);
+    --color-warning-hover: oklch(74% 0.184 86.047);
+    --color-warning-text: oklch(28% 0.066 53.813);
+
+    /* warna status error */
+    --color-error: oklch(64% 0.246 16.439);
+    --color-error-hover: oklch(59% 0.246 16.439);
+    --color-error-text: oklch(27% 0.105 12.094);
+}
+
+/*  */
+
+/* inisialisasi styling container */
 .container {
     min-height: 80dvh;
 }
 
+/*  */
+
+/* bagian profil */
 #profile-section {
     display: grid;
     gap: 1rem;
@@ -16,3 +71,14 @@
     width: 100%;
     margin: 0;
 }
+
+#profile-section .inputs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    border: 1px solid var(--color-neutral);
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+/*  */

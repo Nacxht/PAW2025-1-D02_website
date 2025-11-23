@@ -133,7 +133,8 @@ a:hover {
     gap: 0.3rem;
 }
 
-input {
+input,
+select {
     width: 100%;
     border: 1px solid var(--color-neutral);
     border-radius: 5px;
