@@ -1,38 +1,133 @@
-/* variabel warna */
+/* variabel-variabel css */
 :root {
-    --teks-deskripsi: rgb(45, 45, 45);
+    /* warna primer */
+    --color-primary: oklch(85% 0.138 181.071);
+    --color-primary-hover: oklch(80% 0.138 181.071);
+    --color-primary-text: oklch(43% 0.078 188.216);
+
+    /* warna sekunder */
+    --color-secondary: oklch(89% 0.061 343.231);
+    --color-secondary-hover: oklch(84% 0.061 343.231);
+    --color-secondary-text: oklch(45% 0.187 3.815);
+
+    /* warna aksen */
+    --color-accent: oklch(90% 0.076 70.697);
+    --color-accent-hover: oklch(85% 0.076 70.697);
+    --color-accent-text: oklch(47% 0.157 37.304);
+
+    /* warna netral */
+    --color-neutral: oklch(27% 0.006 286.033);
+    --color-neutral-hover: oklch(22% 0.006 286.033);
+    --color-neutral-text: oklch(92% 0.004 286.32);
+
+    /* warna dasar */
+    --color-base-100: oklch(97.788% 0.004 56.375);
+    --color-base-200: oklch(93.982% 0.007 61.449);
+    --color-base-300: oklch(91.586% 0.006 53.44);
+    --color-base-text: oklch(23.574% 0.066 313.189);
+
+    /* warna status info */
+    --color-info: oklch(68% 0.169 237.323);
+    --color-info-hover: oklch(63% 0.169 237.323);
+    --color-info-text: oklch(29% 0.066 243.157);
+
+    /* warna status sukses */
+    --color-success: oklch(69% 0.17 162.48);
+    --color-success-hover: oklch(64% 0.17 162.48);
+    --color-success-text: oklch(26% 0.051 172.552);
+
+    /* warna status peringatan */
+    --color-warning: oklch(79% 0.184 86.047);
+    --color-warning-hover: oklch(74% 0.184 86.047);
+    --color-warning-text: oklch(28% 0.066 53.813);
+
+    /* warna status error */
+    --color-error: oklch(64% 0.246 16.439);
+    --color-error-hover: oklch(59% 0.246 16.439);
+    --color-error-text: oklch(27% 0.105 12.094);
 }
 
 /*  */
 
-/* inisialisasi */
+/* styling inisialisasi */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    list-style: none;
+}
+
+body {
+    background: var(--color-base-100);
+}
+
+.container {
+    margin: 7rem 10rem 1rem;
 }
 
 /*  */
 
-/* tipografi */
-h1.judul {
+/* styling tipografi */
+h1,
+p,
+a {
+    color: var(--color-base-text);
+}
+
+h1 {
     font-size: xx-large;
 }
 
-p.description {
-    color: var(--teks-deskripsi);
+p {
+    line-height: 1.5;
 }
 
 .error-message {
-    color: red;
+    color: var(--color-error);
     font-size: x-small;
     margin-left: 1rem;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.text-primary {
+    color: var(--color-primary-text)
+}
+
+.text-secondary {
+    color: var(--color-secondary-text);
+}
+
+.text-accent {
+    color: var(--color-accent-text);
+}
+
+.text-info {
+    color: var(--color-info-text);
+}
+
+.text-success {
+    color: var(--color-success-text);
+}
+
+.text-warning {
+    color: var(--color-warning-text);
+}
+
+.text-error {
+    color: var(--color-error-text);
+}
+
 /*  */
 
-/* komponen */
+/* styling input */
 .input-container {
     display: grid;
     gap: 0.3rem;
@@ -43,6 +138,178 @@ input {
     border: 1px solid black;
     border-radius: 5px;
     padding: 0.5rem;
+}
+
+/*  */
+
+/* styling navbar */
+nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    background: var(--color-base-100);
+    border: 2px solid var(--color-base-text);
+    margin: 1rem;
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+nav .branding h1 {
+    justify-self: center;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+nav .login-register,
+nav .profile {
+    display: flex;
+    gap: 0.5rem;
+    justify-self: right;
+}
+
+/*  */
+
+/* Footer */
+footer {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-base-200);
+    border-top: 1px solid var(--color-neutral);
+    padding: 1rem;
+}
+
+footer p {
+    color: var(--color-accent-text);
+}
+
+/*  */
+
+/* styling button */
+.btn {
+    display: block;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: medium;
+    transition: all 200ms;
+    text-align: center;
+    width: fit-content;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+    border: 1px solid var(--color-primary-text);
+}
+
+.btn.btn-primary:hover {
+    background: var(--color-primary-hover);
+}
+
+.btn.btn-secondary {
+    background: var(--color-secondary);
+    color: var(--color-secondary-text);
+    border: 1px solid var(--color-secondary-text);
+}
+
+.btn.btn-secondary:hover {
+    background: var(--color-secondary-hover);
+}
+
+.btn.btn-accent {
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border: 1px solid var(--color-accent-text);
+}
+
+.btn.btn-accent:hover {
+    background: var(--color-accent-hover);
+}
+
+.btn.btn-neutral {
+    background: var(--color-neutral);
+    color: var(--color-neutral-text);
+    border: 1px solid var(--color-neutral-hover);
+}
+
+.btn.btn-neutral:hover {
+    background: var(--color-neutral-hover);
+}
+
+.btn.btn-outline {
+    background: var(--color-base-100);
+    color: var(--color-neutral);
+    border: 2px solid var(--color-neutral);
+}
+
+.btn.btn-outline:hover {
+    background: var(--color-neutral);
+    color: var(--color-neutral-text);
+}
+
+.btn.btn-info {
+    background: var(--color-info);
+    color: var(--color-info-text);
+    border: 1px solid var(--color-info-text);
+}
+
+.btn.btn-info:hover {
+    background: var(--color-info-hover);
+}
+
+.btn.btn-success {
+    background: var(--color-success);
+    color: var(--color-success-text);
+    border: 1px solid var(--color-success-text);
+}
+
+.btn.btn-success:hover {
+    background: var(--color-success-hover);
+}
+
+.btn.btn-warning {
+    background: var(--color-warning);
+    color: var(--color-warning-text);
+    border: 1px solid var(--color-warning-text);
+}
+
+.btn.btn-warning:hover {
+    background: var(--color-warning-hover);
+}
+
+.btn.btn-error {
+    background: var(--color-error);
+    color: var(--color-error-text);
+    border: 1px solid var(--color-error-text);
+}
+
+.btn.btn-error:hover {
+    background: var(--color-error-hover);
+}
+
+/*  */
+
+/* divider */
+hr.divider {
+    border-top: 2px solid var(--color-neutral);
+    height: 0;
+    margin: 2rem auto;
 }
 
 /*  */

@@ -32,11 +32,23 @@ if (isset($_POST["login-submit"])) {
 
 <body>
 	<div class="container">
-		<h1 class="judul">
-			Login
-		</h1>
+		<div id="login-section">
+			<h1>
+				Halo, <br> Selamat Datang!
+			</h1>
 
-		<?php include "components/forms/login_form.php" ?>
+			<p>
+				Silahkan login untuk membuka akses lebih banyak ke halaman web
+			</p>
+
+			<div id="login-form">
+				<?php include __DIR__ . "/components/forms/login_form.php" ?>
+			</div>
+		</div>
+
+		<div id="illustration-section">
+			<img src="" alt="">
+		</div>
 	</div>
 </body>
 

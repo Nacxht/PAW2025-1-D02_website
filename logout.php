@@ -6,4 +6,4 @@ unset($_SESSION["username"]);
 unset($_SESSION["user_id"]);
 unset($_SESSION["role"]);
 
-header(BASE_URL);
+header(BASE_URL . "index.php");
