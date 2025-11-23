@@ -46,18 +46,20 @@ if (isset($_POST["submit"])) {
 				jika belum memiliki akun untuk melakukan proses login.
 			</p>
 
+			<hr class="divider">
+
 			<div class="form-container">
 				<?php include "components/forms/register_form.php" ?>
 			</div>
 
 			<p>
-				Sudah memiliki akun? <a href="login.php">Login</a>
+				Sudah Memiliki Akun? <a href="login.php">Login</a>
 			</p>
 
 			<hr class="divider">
 
 			<p>
-				Atau kembali ke
+				Atau Kembali ke
 				<a href="<?= BASE_URL ?>">
 					beranda
 				</a>

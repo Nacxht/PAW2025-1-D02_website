@@ -44,20 +44,22 @@ if (isset($_POST["login-submit"])) {
 				siswa.
 			</p>
 
+			<hr class="divider">
+
 			<div id="form-container">
 				<?php include __DIR__ . "/components/forms/login_form.php" ?>
 			</div>
 
 			<p>
-				Belum memiliki akun? <a href="register.php">Register</a>
+				Belum Memiliki Akun? <a href="register.php">Register</a>
 			</p>
 
 			<hr class="divider">
 
 			<p>
-				Atau kembali ke
+				Atau Kembali ke
 				<a href="<?= BASE_URL ?>">
-					beranda
+					Beranda
 				</a>
 			</p>
 		</div>
