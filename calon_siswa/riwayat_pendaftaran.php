@@ -13,14 +13,17 @@ $data = ambilRiwayatPendaftaran();
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
+	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
 </head>
 
 <body>
-	<h1>Riwayat Pendaftaran Anda</h1>
 
 
-	<?php foreach ($data as $dt): ?>
-		<div class="container">
+	<?php include_once __DIR__ . "/../components/layouts/navbar.php" ?>
+
+	<div class="container">
+		<h1>Riwayat Pendaftaran Anda</h1>
+		<?php foreach ($data as $dt): ?>
 			<a href="">
 				<p>Tanggal Daftar : <?= $dt['tanggal_daftar'] ?></p>
 			</a>
@@ -39,7 +42,10 @@ $data = ambilRiwayatPendaftaran();
 			<P>Surat Kesehatan :<a href="../assets/uploads/<?= $dt['surat_kesehatan'] ?? '' ?>">Lihat</a></P>
 			<P>Foto : <a href="../assets/uploads/<?= $dt['pasfoto'] ?? '' ?>">Lihat</a></P>
 			<p>=============================================</p>
-		</div>
-	<?php endforeach ?>
+		<?php endforeach ?>
+	</div>
+
+
+	<?php include_once __DIR__ . "/../components/layouts/footer.php" ?>
 
 </body>

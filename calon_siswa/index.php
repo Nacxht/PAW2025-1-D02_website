@@ -14,9 +14,12 @@ require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
 </head>
 
 <body>
-	<p>
-	<h1>Selamat Datang <?= $_SESSION['username'] ?></h1>
-	</p>
+	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
+	<?php include_once __DIR__ . "/../components/layouts/navbar.php" ?>
+	<div class="container">
+		<h1>Selamat Datang <?= $_SESSION['username'] ?></h1>
+	</div>
+
 </body>
 
 </html>
