@@ -80,7 +80,29 @@
 .container#dashboard .stat p {
     font-size: xx-large;
     font-weight: bolder;
+    text-align: center;
+}
 
+/*  */
+
+/* akun */
+.container#daftar-akun form.filter {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    width: fit-content;
+    gap: 0.5rem;
+    justify-self: right;
+    margin-bottom: 1rem;
+}
+
+/*  */
+
+/* sunting akun */
+.container#sunting-akun form.user-account-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
 }
 
 /*  */

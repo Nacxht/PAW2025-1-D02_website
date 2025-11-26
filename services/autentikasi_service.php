@@ -9,14 +9,25 @@ function loginService(array $data, array &$errors)
     try {
         // menggabung dua query menggunakan UNION ALL
         $stmt = DBH->prepare(
-            "SELECT *, 'admin' role FROM admin
-            UNION ALL
-            SELECT *, 'calon_siswa' role FROM calon_siswa"
-        );
-
-        // mengecek admin terlebih dahulu
-        $stmt = DBH->prepare(
-            "SELECT * FROM admin WHERE username=:username"
+            "SELECT user.* FROM (
+                SELECT
+                    id_admin id_user,
+                    username,
+                    email,
+                    password,
+                    'admin' role
+                FROM
+                    admin
+                UNION ALL
+                SELECT
+                    id_calon_siswa id_user,
+                    username,
+                    email,
+                    password,
+                    'calon_siswa' role
+                FROM
+                    calon_siswa
+            ) user WHERE username = :username"
         );
 
         $stmt->execute([":username" => $data["username"]]);

@@ -19,6 +19,10 @@ function validateUsername(string $field, array &$errors)
         $errors["username"][] = "Panjang minimal username adalah 3 (tiga) karakter";
     }
 
+    if (strlen($field) > 20) {
+        $errors["username"][] = "Panjang maksimal username adalah 20 (dua puluh) karakter";
+    }
+
     // mengecek apakah terdapat duplikasi username di database
     $stmt = DBH->prepare(
         "SELECT username FROM admin WHERE username=:username"
@@ -114,6 +118,15 @@ function validateKonfirmasiPassword(string $field, string $password, array &$err
 
     if ($field != $password) {
         $errors["konfirmasi_password"][] = "Password konfirmasi tidak sama dengan password utama";
+    }
+}
+
+function validateRole(string $field, &$errors)
+{
+    $roleValue = ["admin", "calon_siswa"];
+
+    if (cekFieldKosong($field)) {
+        $errors["role"][] = "Role tidak boleh kosong";
     }
 }
 

@@ -1,20 +1,13 @@
 <?php
-require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
-?>
+require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
+require_once __DIR__  . "/../../services/user_service.php";
 
-<!DOCTYPE html>
-<html lang="en">
+if (!isset($_GET["id"]) || !isset($_GET["role"])) {
+    header("Location: " . BASE_URL . "admin/akun");
+    exit();
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+$id = $_GET["id"];
+$role = $_GET["role"];
 
-    <link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
-</head>
-
-<body>
-
-</body>
-
-</html>
+deleteUserService($id, $role);

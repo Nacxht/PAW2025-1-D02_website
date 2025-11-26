@@ -5,15 +5,14 @@ require_once __DIR__ . "/../services/user_service.php";
 require_once __DIR__ . "/../services/form_pendaftaran.php";
 
 $jurusanCount = getJurusanCountService();
+$userCount = getUserCountService();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <?php include_once __DIR__ . "/../components/layouts/meta_title.php" ?>
 
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/admin.css" ?>">
@@ -32,7 +31,7 @@ $jurusanCount = getJurusanCountService();
                 <hr class="divider">
 
                 <p>
-                    0
+                    <?= $userCount["total_user"] ?>
                 </p>
             </div>
 
@@ -44,7 +43,7 @@ $jurusanCount = getJurusanCountService();
                 <hr class="divider">
 
                 <p>
-                    0
+                    <?= $userCount["total_admin"] ?>
                 </p>
             </div>
 
@@ -56,7 +55,7 @@ $jurusanCount = getJurusanCountService();
                 <hr class="divider">
 
                 <p>
-                    0
+                    <?= $userCount["total_calon_siswa"] ?>
                 </p>
             </div>
 
