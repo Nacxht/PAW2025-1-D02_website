@@ -54,6 +54,19 @@
     min-height: 80dvh;
 }
 
+.container .search-add {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 1rem;
+}
+
+.container .filter {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+}
+
 /*  */
 
 /* halaman dashboard */

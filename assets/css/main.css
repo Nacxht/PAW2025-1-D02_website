@@ -341,4 +341,10 @@ table.data-table .table-action-column {
     justify-content: center;
 }
 
+table.data-table .data-empty {
+    font-size: xx-large;
+    text-align: center;
+    font-weight: bolder;
+}
+
 /*  */

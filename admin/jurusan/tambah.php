@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../../auth_middleware/after_login_middleware.php";
+require_once __DIR__ . "/../../services/jurusan_service.php";
+require_once __DIR__ . "/../../validators/jurusan_validator.php";
 ?>
 
 <!DOCTYPE html>

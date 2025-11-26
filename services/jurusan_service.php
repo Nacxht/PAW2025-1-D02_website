@@ -16,15 +16,18 @@ function addJurusanService(array $data)
 }
 
 // mendapatkan keseluruhan data jurusan
-function getJurusanService()
+function getJurusanService($jurusanName = "")
 {
     $stmt = DBH->prepare(
-        "SELECT *
-        FROM jurusan"
+        "SELECT
+            *
+        FROM
+            jurusan
+        WHERE
+            nama_jurusan LIKE :nama_jurusan"
     );
 
-    $stmt->execute();
-
+    $stmt->execute([":nama_jurusan" => "%$jurusanName%"]);
     return $stmt->fetchAll();
 }
 

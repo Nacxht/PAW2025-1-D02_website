@@ -31,7 +31,7 @@
 
     <div class="input-container">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" value="<?= $password ?? "" ?>">
+        <input type="password" name="password" id="password">
 
         <ul>
             <?php if (isset($errors["password"])): ?>
@@ -45,12 +45,12 @@
     </div>
 
     <div class="input-container">
-        <label for="konfirmasi_password">Konfirmasi Password</label>
-        <input type="password" name="konfirmasi_password" id="konfirmasi_password" value="<?= $konfirmasiPassword ?? "" ?>">
+        <label for="konfirmasi-password">Konfirmasi Password</label>
+        <input type="password" name="konfirmasi-password" id="konfirmasi-password">
 
         <ul>
-            <?php if (isset($errors["konfirmasi_password"])): ?>
-                <?php foreach ($errors["konfirmasi_password"] as $error): ?>
+            <?php if (isset($errors["konfirmasi-password"])): ?>
+                <?php foreach ($errors["konfirmasi-password"] as $error): ?>
                     <li class="error-message">
                         <?= $error ?>
                     </li>

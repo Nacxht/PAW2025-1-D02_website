@@ -16,7 +16,7 @@
 
     <div class="input-container">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" value="<?= $password ?? "" ?>">
+        <input type="password" name="password" id="password">
 
         <?php if (isset($errors["password"])): ?>
             <ul>
