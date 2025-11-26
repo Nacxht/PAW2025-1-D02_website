@@ -10,4 +10,18 @@ if (!isset($_GET["id"]) || !isset($_GET["role"])) {
 $id = $_GET["id"];
 $role = $_GET["role"];
 
+if ($id == $_SESSION["id_user"]) {
+    header("Location: " . BASE_URL . "admin/akun");
+    exit();
+}
+
+$user = getUserByID($id, $role);
+
+if (!$user) {
+    header("Location: " . BASE_URL . "admin/akun");
+    exit();
+}
+
 deleteUserService($id, $role);
+header("Location: " . BASE_URL . "admin/akun");
+exit();

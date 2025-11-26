@@ -12,6 +12,11 @@ $id = $_GET["id"];
 $role = $_GET["role"];
 $user = getUserByID($id, $role);
 
+if (!$user) {
+    header("Location: " . BASE_URL . "admin/akun");
+    exit();
+}
+
 if (isset($_POST["user-edit"])) {
     $username = $_POST["username"];
     $email = $_POST["email"];

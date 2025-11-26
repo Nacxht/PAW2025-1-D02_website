@@ -79,9 +79,11 @@ $users = getUsersService($role, $username);
                                 Sunting
                             </a>
 
-                            <a href="<?= BASE_URL . "admin/akun/hapus.php?id=" . urlencode($user["id_user"]) ?>" class="btn btn-error">
-                                Hapus
-                            </a>
+                            <?php if ($user["id_user"] != $_SESSION["id_user"]): ?>
+                                <a href="<?= BASE_URL . "admin/akun/hapus.php?id=" . urlencode($user["id_user"]) . "&role=" . urlencode($user["role"]) ?>" class="btn btn-error">
+                                    Hapus
+                                </a>
+                            <?php endif ?>
                         </td>
                     </tr>
                 <?php endforeach ?>
