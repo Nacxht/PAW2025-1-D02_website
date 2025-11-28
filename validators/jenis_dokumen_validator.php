@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . "/../db_conn.php";
-require __DIR__ . "/base_validator.php";
+require_once __DIR__ . "/../db_conn.php";
+require_once __DIR__ . "/base_validator.php";
 
 /**
  * Fungsi untuk memvalidasi nama dari jenis dokumen
