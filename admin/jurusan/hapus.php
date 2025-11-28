@@ -1,18 +1,20 @@
 <?php
 require_once __DIR__ . "/../../auth_middleware/after_login_middleware.php";
-?>
+require_once __DIR__ . "/../../services/jurusan_service.php";
 
-<!DOCTYPE html>
-<html lang="en">
+if (!isset($_GET["id"])) {
+    header("Location: " . BASE_URL . "admin/jurusan");
+    exit();
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+$id = $_GET["id"];
+$jurusan = detailJurusanService($id);
 
-<body>
-    <!--  -->
-</body>
+if (!$jurusan) {
+    header("Location: " . BASE_URL . "admin/jurusan");
+    exit();
+}
 
-</html>
+hapusJurusanService($id);
+header("Location: " . BASE_URL . "admin/jurusan");
+exit();

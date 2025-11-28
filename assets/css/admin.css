@@ -119,3 +119,12 @@
 }
 
 /*  */
+
+/* tambah jurusan */
+.container#tambah-jurusan form,
+.container#sunting-jurusan form {
+    display: grid;
+    gap: 1rem;
+}
+
+/*  */

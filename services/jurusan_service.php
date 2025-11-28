@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../db_conn.php";
 
 // menambah jurusan
-function addJurusanService(array $data)
+function tambahJurusanService(array $data)
 {
     $stmt = DBH->prepare(
         "INSERT INTO jurusan (nama_jurusan, deskripsi_jurusan)
@@ -10,13 +10,13 @@ function addJurusanService(array $data)
     );
 
     $stmt->execute([
-        ":nama_jurusan" => $data["nama_jurusan"],
-        ":deskripsi_jurusan" => $data["deskripsi_jurusan"]
+        ":nama_jurusan" => htmlspecialchars($data["nama-jurusan"]),
+        ":deskripsi_jurusan" => htmlspecialchars($data["deskripsi-jurusan"])
     ]);
 }
 
 // mendapatkan keseluruhan data jurusan
-function getJurusanService($jurusanName = "")
+function daftarJurusanService($jurusanName = "")
 {
     $stmt = DBH->prepare(
         "SELECT
@@ -32,7 +32,7 @@ function getJurusanService($jurusanName = "")
 }
 
 // mendapatkan detail jurusan berdasarkan ID jurusan
-function getJurusanByIdService(int $idJurusan)
+function detailJurusanService(int $idJurusan)
 {
     $stmt = DBH->prepare(
         "SELECT *
@@ -48,7 +48,7 @@ function getJurusanByIdService(int $idJurusan)
 }
 
 // memperbarui data jurusan berdasarkan ID jurusan
-function updateJurusanService(array $data, int $idJurusan)
+function suntingJurusanService(array $data, int $idJurusan)
 {
     $stmt = DBH->prepare(
         "UPDATE jurusan
@@ -57,14 +57,14 @@ function updateJurusanService(array $data, int $idJurusan)
     );
 
     $stmt->execute([
-        ":nama_jurusan" => $data["nama_jurusan"],
-        ":deskripsi_jurusan" => $data["deskripsi_jurusan"],
+        ":nama_jurusan" => htmlspecialchars($data["nama-jurusan"]),
+        ":deskripsi_jurusan" => htmlspecialchars($data["deskripsi-jurusan"]),
         ":id_jurusan" => $idJurusan
     ]);
 }
 
 // menghapus data jurusan berdasarkan ID jurusan
-function deleteJurusanService(int $jurusanId)
+function hapusJurusanService(int $jurusanId)
 {
     $stmt = DBH->prepare(
         "DELETE FROM jurusan
@@ -77,7 +77,7 @@ function deleteJurusanService(int $jurusanId)
 }
 
 // mendapatkan jumlah data yang terdapat di tabel jurusan
-function getJurusanCountService()
+function jumlahJurusanService()
 {
     $stmt = DBH->prepare(
         "SELECT count(id_jurusan) jumlah_jurusan
@@ -85,6 +85,5 @@ function getJurusanCountService()
     );
 
     $stmt->execute();
-
     return $stmt->fetch()["jumlah_jurusan"];
 }

@@ -3,9 +3,9 @@ require_once __DIR__ . "/../config.php";
 require_once __DIR__ . "/../db_conn.php";
 require_once __DIR__ . "/base_validator.php";
 
-function validateJurusanName(string $field, array &$errors)
+function validateNamaJurusan(string $field, array &$errors)
 {
-    $regex = "/^[A-Za-z]+$/";
+    $regex = "/^[A-Za-z ]+$/";
 
     if (cekFieldKosong($field)) {
         $errors["nama-jurusan"][] = "Nama jurusan tidak boleh kosong";
@@ -20,11 +20,27 @@ function validateJurusanName(string $field, array &$errors)
     }
 
     if (!preg_match($regex, $field)) {
-        $errors["nama-jurusan"][] = "Nama jurusan hanya dapat bertipe alphabet (A-Z)";
+        $errors["nama-jurusan"][] = "Nama jurusan hanya dapat bertipe alphabet (A-Z) / (a-z) dan spasi (' ')";
+    }
+
+    // mengecek duplikasi nama jurusan
+    $stmt = DBH->prepare(
+        "SELECT
+            nama_jurusan
+        FROM
+            jurusan
+        WHERE
+            nama_jurusan = :nama_jurusan"
+    );
+
+    $stmt->execute([":nama_jurusan" => $field]);
+
+    if ($stmt->rowCount()) {
+        $errors["nama_jurusan"][] = "Nama jurusan yang anda masukkan sudah ada";
     }
 }
 
-function validateJurusanDescription(string $field, array &$errors)
+function validateDeskripsiJurusan(string $field, array &$errors)
 {
     if (cekFieldKosong($field)) {
         $errors["deskripsi-jurusan"][] = "Deskripsi jurusan tidak boleh kosong";

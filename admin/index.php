@@ -4,7 +4,7 @@ require_once __DIR__ . "/../services/jurusan_service.php";
 require_once __DIR__ . "/../services/user_service.php";
 require_once __DIR__ . "/../services/form_pendaftaran.php";
 
-$jurusanCount = getJurusanCountService();
+$jurusanCount = jumlahJurusanService();
 $userCount = getUserCountService();
 ?>
 
