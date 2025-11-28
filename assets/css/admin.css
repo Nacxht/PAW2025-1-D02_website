@@ -67,6 +67,23 @@
     gap: 1rem;
 }
 
+.container .filter-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container .filter-section form {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+}
+
+.container form.create-update {
+    display: grid;
+    gap: 1rem;
+}
+
 /*  */
 
 /* halaman dashboard */

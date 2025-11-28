@@ -1,18 +1,20 @@
 <?php
-require_once __DIR__ . "/../../auth_middleware/after_login_middleware.php";
-?>
+require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
+require_once __DIR__ . "/../../services/jenis_dokumen_service.php";
 
-<!DOCTYPE html>
-<html lang="en">
+if (!isset($_GET["id"])) {
+    header("Location: " . BASE_URL . "admin/jenis_dokumen");
+    exit();
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+$id = $_GET["id"];
+$jenisDokumen = detailJenisDokumenService($id);
 
-<body>
-    <!--  -->
-</body>
+if (!$jenisDokumen) {
+    header("Location: " . BASE_URL . "admin/jenis_dokumen");
+    exit();
+}
 
-</html>
+hapusJenisDokumenService($id);
+header("Location: " . BASE_URL . "admin/jenis_dokumen");
+exit();
