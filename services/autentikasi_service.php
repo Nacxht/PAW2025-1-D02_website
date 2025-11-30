@@ -54,7 +54,7 @@ function loginService(array $data, array &$errors)
         if ($user["role"] == "admin") {
             header("location: " . BASE_URL . "admin/index.php");
         } else {
-            header("location: " . BASE_URL . "calon_siswa/index.php");
+            header("location: " . BASE_URL);
         }
 
         exit();
