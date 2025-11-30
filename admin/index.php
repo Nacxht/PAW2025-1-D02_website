@@ -22,6 +22,10 @@ $userCount = getUserCountService();
     <?php include __DIR__ . "/../components/layouts/navbar.php" ?>
 
     <div class="container" id="dashboard">
+        <h1>
+            Dashboard
+        </h1>
+
         <div class="stats-container">
             <div class="stat" id="total-user">
                 <h1>
