@@ -189,10 +189,13 @@ function validateProgram(string $field, array &$errors)
  * @param mixed $field - Data yang akan divalidasi
  * @param string $namaField - Nama dari field yang divalidasi
  * @param int $ukuranMaks - Ukuran maksimal dari file yang diupload
+ * @param string $ekstensiValidasi - Ekstensi file yang benar (digunakan untuk validasi)
  * @param array &$errors - Array yang menyimpan pesan-pesan error
  */
-function validateFileUpload(mixed $field, string $namaField, int $ukuranMaks, array &$errors)
+function validateFileUpload(mixed $field, string $namaField, int $ukuranMaks, string $ekstensiValidasi, array &$errors)
 {
+    $ekstensiFile = pathinfo($field["name"], PATHINFO_EXTENSION);
+
     if ($field["name"] == "") {
         $errors[$namaField][] = "Tidak boleh kosong, upload file sesuai yang diminta";
     }
@@ -200,6 +203,10 @@ function validateFileUpload(mixed $field, string $namaField, int $ukuranMaks, ar
     if ($field["size"] > $ukuranMaks) {
         $ukuranMb = bitKeMegabit($ukuranMaks);
         $errors[$namaField][] = "Maksimal ukuran file adalah $ukuranMb Mb";
+    }
+
+    if ($ekstensiFile != $ekstensiValidasi) {
+        $errors[$namaField][] = "Ekstensi file hanya boleh berupa .$ekstensiValidasi";
     }
 }
 

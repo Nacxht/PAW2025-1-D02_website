@@ -42,6 +42,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
             $files[$kataKunci]["file"],
             $kataKunci,
             $files[$kataKunci]["ukuran-maks"],
+            "jpg",
             $errors
         );
     }
