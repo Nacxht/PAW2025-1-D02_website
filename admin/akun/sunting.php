@@ -25,19 +25,28 @@ if (isset($_POST["user-edit"])) {
 
     $errors = [];
 
-    validateUsername($username, $errors);
-    validateEmail($email, $errors);
-    validateRole($role, $errors);
+    if ($username != $user["username"]) {
+        validateUsername($username, $errors);
+    }
+
+    if ($email != $user["email"]) {
+        validateEmail($email, $errors);
+    }
+
+    if ($role !== $user["role"]) {
+        validateRole($role, $errors);
+    }
 
     if ($password) {
         validatePassword($password, $errors);
         updateUserPasswordService($password, $id, $role);
     }
 
-    updateUserService($_POST, $_POST["role"], $id);
-
-    header("Location: " . BASE_URL . "admin/akun");
-    exit();
+    if (!$errors) {
+        updateUserService($_POST, $_POST["role"], $id);
+        header("Location: " . BASE_URL . "admin/akun");
+        exit();
+    }
 }
 ?>
 
@@ -63,16 +72,46 @@ if (isset($_POST["user-edit"])) {
             <div class="input-container">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="<?= $user["username"] ?>">
+
+                <?php if (isset($errors["username"])): ?>
+                    <ul>
+                        <?php foreach ($errors["username"] as $error): ?>
+                            <li class="error-message">
+                                <?= $error ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
 
             <div class="input-container">
                 <label for="email">Email</label>
                 <input type="text" name="email" id="email" value="<?= $user["email"] ?>">
+
+                <?php if (isset($errors["email"])): ?>
+                    <ul>
+                        <?php foreach ($errors["email"] as $error): ?>
+                            <li class="error-message">
+                                <?= $error ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
 
             <div class="input-container">
                 <label for="password">Password (kosongi jika tidak ingin mengubah password)</label>
                 <input type="password" name="password" id="password">
+
+                <?php if (isset($errors["password"])): ?>
+                    <ul>
+                        <?php foreach ($errors["password"] as $error): ?>
+                            <li class="error-message">
+                                <?= $error ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
 
             <div class="input-container">
@@ -82,6 +121,16 @@ if (isset($_POST["user-edit"])) {
                     <option value="admin" <?= $user["role"] == "admin" ?>>Admin</option>
                     <option value="calon_siswa">Calon Siswa</option>
                 </select>
+
+                <?php if (isset($errors["role"])): ?>
+                    <ul>
+                        <?php foreach ($errors["role"] as $error): ?>
+                            <li class="error-message">
+                                <?= $error ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
 
             <button type="submit" class="btn btn-success" name="user-edit">
