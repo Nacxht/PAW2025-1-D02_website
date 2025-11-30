@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/base_validator.php";
+require_once __DIR__ . "/../utils/ukuran_file_konverter.php";
 
 /**
  * Fungsi untuk memvalidasi nama lengkap dari pendaftar
@@ -112,17 +113,17 @@ function validateTanggalLahir(string $field, array &$errors)
     try {
         // mengubah hasil field date ke objek DateTime
         $field = new DateTime($field);
-        $tahunLahir = (int) $field->format("y");
+        $tahunLahir = (int) $field->format("Y");
     } catch (Exception $error) {
         $errors["tanggal-lahir"][] = "Tanggal lahir tidak valid";
         return;
     }
 
-    if ($tahunLahir < $batasTahunMinimal) {
+    if ($tahunLahir > $batasTahunMinimal) {
         $errors["tanggal-lahir"][] = "Usia anda terlalu muda untuk mendaftar";
     }
 
-    if ($tahunLahir > $batasTahunMaksimal) {
+    if ($tahunLahir < $batasTahunMaksimal) {
         $errors["tanggal-lahir"][] = "Usia anda terlalu tua untuk mendaftar";
     }
 
@@ -196,8 +197,9 @@ function validateFileUpload(mixed $field, string $namaField, int $ukuranMaks, ar
         $errors[$namaField][] = "Tidak boleh kosong, upload file sesuai yang diminta";
     }
 
-    if ($field["size"] > $ukuranMaks || 0) {
-        $errors[$namaField][] = "Maksimal ukuran file adalah $ukuranMaks";
+    if ($field["size"] > $ukuranMaks) {
+        $ukuranMb = bitKeMegabit($ukuranMaks);
+        $errors[$namaField][] = "Maksimal ukuran file adalah $ukuranMb Mb";
     }
 }
 
@@ -213,7 +215,7 @@ function validatePersetujuanAsrama(string $field, array &$errors)
         $errors["persetujuan-asrama"][] = "Anda wajib menyetujui ketentuan kami";
     }
 
-    if ($field != "setuju") {
+    if ($field != "true") {
         $errors["persetujuan-asrama"][] = "Anda wajib menyetujui ketentuan kami";
     }
 }
@@ -230,7 +232,7 @@ function validatePersetujuanHp(string $field, array &$errors)
         $errors["persetujuan-hp"][] = "Anda wajib menyetujui ketentuan kami";
     }
 
-    if ($field != "setuju") {
+    if ($field != "true") {
         $errors["persetujuan-hp"][] = "Anda wajib menyetujui ketentuan kami";
     }
 }

@@ -1,9 +1,6 @@
 <?php
 require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . '/../services/riwayat_pendaftaran.php';
-
-
-$data = ambilRiwayatPendaftaran();
 ?>
 
 <!DOCTYPE html>

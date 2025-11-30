@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . '/../validators/form_pendaftaran_validator.php';
-require_once __DIR__ . '/../services/form_pendaftaran.php';
+require_once __DIR__ . '/../services/form_pendaftaran_service.php';
 require_once __DIR__ . "/../services/jurusan_service.php";
 require_once __DIR__ . "/../services/program_service.php";
 require_once __DIR__ . "/../services/jenis_dokumen_service.php";
@@ -33,7 +33,8 @@ if (isset($_POST['submit-form-pendaftaran'])) {
         $file = $_FILES[$kataKunci] ?? null;
 
         $files[$kataKunci] = [
-            "ukuran-maks" => 1000000,
+            "ukuran-maks" => 1048576,
+            "id-jenis-dokumen" => $jenisDokumen["id_jenis_dokumen"],
             "file" => $file
         ];
 
@@ -52,11 +53,25 @@ if (isset($_POST['submit-form-pendaftaran'])) {
     validateTanggalLahir($tanggalLahir, $errors);
     validateAsalSekolah($asalSekolah, $errors);
     validateJurusan($jurusan, $errors);
+    validateProgram($program, $errors);
     validatePersetujuanAsrama($persetujuanAsrama, $errors);
     validatePersetujuanHp($persetujuanHp, $errors);
 
     if (!$errors) {
-        formPendaftaran($nama_lengkap, $nik, $jenis_kelamin, $tempat_lahir, $tanggal_lahir, $asal_sekolah, $jurusan, $akta_kelahiran, $kartu_keluarga, $rapor, $surat_keterangan_lulus, $surat_kesehatan, $pasfoto, $persetujuan_tidak_membawa_hp, $persetujuan_asrama);
+        tambahFormPendaftaranService(
+            $_SESSION["id_user"],
+            $jurusan,
+            $program,
+            $namaLengkap,
+            $nik,
+            $jenisKelamin,
+            $tempatLahir,
+            $tanggalLahir,
+            $asalSekolah,
+            $persetujuanAsrama,
+            $persetujuanHp,
+            $files
+        );
     }
 }
 
@@ -84,7 +99,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
         <form action="" method="post" enctype="multipart/form-data">
             <div class="input-container nama-lengkap">
                 <label for="nama-lengkap">Nama Lengkap</label>
-                <input type="text" name="nama-lengkap" id="nama-lengkap">
+                <input type="text" name="nama-lengkap" id="nama-lengkap" value="<?= $namaLengkap ?? "" ?>">
 
                 <?php if (isset($errors["nama-lengkap"])): ?>
                     <ul>
@@ -99,7 +114,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
             <div class="input-container nik">
                 <label for="nik">NIK</label>
-                <input type="text" name="nik" id="nik">
+                <input type="text" name="nik" id="nik" value="<?= $nik ?? "" ?>">
 
                 <?php if (isset($errors["nik"])): ?>
                     <ul>
@@ -117,8 +132,10 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
                 <select name="jenis-kelamin" id="jenis-kelamin">
                     <option value="">-- Pilih Jenis Kelamin --</option>
-                    <option value="l">Laki-Laki</option>
-                    <option value="p">Perempuan</option>
+
+                    <?php $jenisKelamin = $jenisKelamin ?? "" ?>
+                    <option value="l" <?= $jenisKelamin == "l" ? "selected" : "" ?>>Laki-Laki</option>
+                    <option value="p" <?= $jenisKelamin == "p" ? "selected" : "" ?>>Perempuan</option>
                 </select>
 
                 <?php if (isset($errors["jenis-kelamin"])): ?>
@@ -134,7 +151,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
             <div class="input-container tempat-lahir">
                 <label for="tempat-lahir">Tempat Lahir</label>
-                <input type="text" name="tempat-lahir" id="tempat-lahir">
+                <input type="text" name="tempat-lahir" id="tempat-lahir" value="<?= $tempatLahir ?? "" ?>">
 
                 <?php if (isset($errors["tempat-lahir"])): ?>
                     <ul>
@@ -149,7 +166,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
             <div class="input-container tanggal-lahir">
                 <label for="tanggal-lahir">Tanggal Lahir</label>
-                <input type="date" name="tanggal-lahir" id="tanggal-lahir">
+                <input type="date" name="tanggal-lahir" id="tanggal-lahir" value="<?= $tanggalLahir ?? "" ?>">
 
                 <?php if (isset($errors["tanggal-lahir"])): ?>
                     <ul>
@@ -164,7 +181,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
             <div class="input-container asal-sekolah">
                 <label for="asal-sekolah">Asal Sekolah</label>
-                <input type="text" name="asal-sekolah" id="asal-sekolah">
+                <input type="text" name="asal-sekolah" id="asal-sekolah" value="<?= $asalSekolah ?? "" ?>">
 
                 <?php if (isset($errors["asal-sekolah"])): ?>
                     <ul>
@@ -183,9 +200,10 @@ if (isset($_POST['submit-form-pendaftaran'])) {
                 <select name="jurusan" id="jurusan">
                     <option value="">-- Pilih Jurusan --</option>
 
-                    <?php foreach ($daftarJurusan as $jurusan): ?>
-                        <option value="<?= $jurusan["id_jurusan"] ?>">
-                            <?= $jurusan["nama_jurusan"] ?>
+                    <?php $jurusan = $jurusan ?? "" ?>
+                    <?php foreach ($daftarJurusan as $dataJurusan): ?>
+                        <option value="<?= $dataJurusan["id_jurusan"] ?>" <?= $jurusan == $dataJurusan["id_jurusan"] ? "selected" : "" ?>>
+                            <?= $dataJurusan["nama_jurusan"] ?>
                         </option>
                     <?php endforeach ?>
                 </select>
@@ -207,9 +225,10 @@ if (isset($_POST['submit-form-pendaftaran'])) {
                 <select name="program" id="program">
                     <option value="">-- Pilih Program --</option>
 
-                    <?php foreach ($daftarProgram as $program): ?>
-                        <option value="<?= $program["id_program"] ?>">
-                            <?= $program["nama_program"] ?>
+                    <?php $program = $program ?? "" ?>
+                    <?php foreach ($daftarProgram as $dataProgram): ?>
+                        <option value="<?= $dataProgram["id_program"] ?>" <?= $program == $dataProgram["id_program"] ? "selected" : "" ?>>
+                            <?= $dataProgram["nama_program"] ?>
                         </option>
                     <?php endforeach ?>
                 </select>
@@ -253,7 +272,9 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
                 <select name="persetujuan-asrama" id="persetujuan-asrama">
                     <option value="false">Tidak Setuju</option>
-                    <option value="true">Setuju</option>
+
+                    <?php $persetujuanAsrama = $persetujuanAsrama ?? "" ?>
+                    <option value="true" <?= $persetujuanAsrama == "true" ? "selected" : "" ?>>Setuju</option>
                 </select>
 
                 <?php if (isset($errors["persetujuan-asrama"])): ?>
@@ -272,7 +293,9 @@ if (isset($_POST['submit-form-pendaftaran'])) {
 
                 <select name="persetujuan-hp" id="persetujuan-hp">
                     <option value="false">Tidak Setuju</option>
-                    <option value="true">Setuju</option>
+
+                    <?php $persetujuanHp = $persetujuanHp ?? "" ?>
+                    <option value="true" <?= $persetujuanHp == "true" ? "selected" : "" ?>>Setuju</option>
                 </select>
 
                 <?php if (isset($errors["persetujuan-hp"])): ?>
