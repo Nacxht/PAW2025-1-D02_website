@@ -56,6 +56,9 @@ function suntingJurusanService(array $data, int $idJurusan)
         WHERE id_jurusan=:id_jurusan"
     );
 
+    var_dump($data);
+    exit();
+
     $stmt->execute([
         ":nama_jurusan" => htmlspecialchars($data["nama-jurusan"]),
         ":deskripsi_jurusan" => htmlspecialchars($data["deskripsi-jurusan"]),

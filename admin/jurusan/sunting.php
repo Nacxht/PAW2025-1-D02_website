@@ -21,11 +21,18 @@ if (isset($_POST["sunting-jurusan"])) {
 
     $errors = [];
 
-    validateNamaJurusan($namaJurusan, $errors);
-    validateDeskripsiJurusan($deskripsiJurusan, $errors);
+    if ($namaJurusan != $jurusan["nama_jurusan"]) {
+        validateNamaJurusan($namaJurusan, $errors);
+    }
+
+    if ($deskripsiJurusan != $jurusan["deskripsi_jurusan"]) {
+        validateDeskripsiJurusan($deskripsiJurusan, $errors);
+    }
 
     if (!$errors) {
         suntingJurusanService($_POST, $jurusan["id_jurusan"]);
+        header("Location: " . BASE_URL . "admin/jurusan");
+        exit();
     }
 }
 ?>
