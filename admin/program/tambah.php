@@ -44,7 +44,7 @@ if (isset($_POST["tambah-program"])) {
         <form action="" method="post" class="create-update">
             <div class="input-container">
                 <label for="nama-program">Nama Program</label>
-                <input type="text" name="nama-program" id="nama-program" value="<?= $namaProgram ?? "" ?>">
+                <input type="text" name="nama-program" id="nama-program" value="<?= htmlspecialchars($namaProgram ?? "") ?>">
 
                 <?php if (isset($errors["nama-program"])): ?>
                     <ul>
@@ -57,7 +57,7 @@ if (isset($_POST["tambah-program"])) {
 
             <div class="input-container">
                 <label for="deskripsi-program">Deskripsi Program</label>
-                <textarea name="deskripsi-program" id="deskripsi-program"><?= $deskripsiProgram ?? "" ?></textarea>
+                <textarea name="deskripsi-program" id="deskripsi-program"><?= htmlspecialchars($deskripsiProgram ?? "") ?></textarea>
 
                 <?php if (isset($errors["deskripsi-program"])): ?>
                     <ul>

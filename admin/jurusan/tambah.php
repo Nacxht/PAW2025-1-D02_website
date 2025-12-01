@@ -43,7 +43,7 @@ if (isset($_POST["add-major"])) {
         <form action="" method="post">
             <div class="input-container">
                 <label for="nama-jurusan">Nama Jurusan</label>
-                <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $majorName ?? "" ?>">
+                <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= htmlspecialchars($majorName ?? "") ?>">
 
                 <?php if (isset($errors["nama-jurusan"])): ?>
                     <ul>

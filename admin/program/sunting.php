@@ -54,7 +54,7 @@ if (isset($_POST["sunting-program"])) {
 
     <div class="container" id="tambah-program">
         <h1>
-            Tambah Program
+            Sunting Program
         </h1>
 
         <hr class="divider">
