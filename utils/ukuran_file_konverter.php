@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Fungsi untuk mengkonversi dari satuan Byte ke MegaByte
+ * Fungsi untuk mengkonversi dari satuan Byte ke MegaByte.
+ * 
+ * Rumus dari Byte ke Megabyte adalah:
+ * - Jumlah Bit / 1024 ^ 2.
  * 
  * @param float $bit - Ukuran file dalam bentuk bit
  */

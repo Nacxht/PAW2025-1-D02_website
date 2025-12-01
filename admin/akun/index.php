@@ -1,10 +1,15 @@
 <?php
+// memasukkan file yang dibutuhkan
 require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . "/../../services/user_service.php";
 require_once __DIR__ . "/../../config.php";
 
+/**
+ * Menggunakan htmlspecialchars() untuk menghindari
+ * serangan XSS oleh penyerang
+ */
 $username = htmlspecialchars($_GET["username"] ?? "");
-$role = $_GET["role"] ?? "";
+$role = htmlspecialchars($_GET["role"] ?? "");
 $users = getUsersService($role, $username);
 ?>
 
@@ -12,13 +17,16 @@ $users = getUsersService($role, $username);
 <html lang="en">
 
 <head>
+    <!-- Memasukkan beberapa konfigurasi default dari head -->
     <?php include_once __DIR__ . "/../../components/layouts/meta_title.php" ?>
 
+    <!-- Memasukkan css yang diperlukan -->
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/admin.css" ?>">
 </head>
 
 <body>
+    <!-- Memasukkan navbar -->
     <?php include_once __DIR__ . "/../../components/layouts/navbar.php" ?>
 
     <div class="container" id="daftar-akun">
@@ -28,12 +36,15 @@ $users = getUsersService($role, $username);
 
         <hr class="divider">
 
+        <!-- Form untuk melakukan filter/pencarian -->
         <form action="" method="get" class="filter">
+            <!-- Input filter username -->
             <div class="input-container">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="<?= $username ?>">
             </div>
 
+            <!-- Input filter role -->
             <div class="input-container">
                 <label for="role">Role</label>
 
@@ -49,7 +60,9 @@ $users = getUsersService($role, $username);
             </button>
         </form>
 
+        <!-- Tabel yang menampilkan data-data akun yang ada -->
         <table class="data-table">
+            <!-- Bagian head dari tabel -->
             <thead>
                 <tr>
                     <th>Username</th>
@@ -59,14 +72,17 @@ $users = getUsersService($role, $username);
                 </tr>
             </thead>
 
+            <!-- Bagian data dari tabel -->
             <tbody>
                 <?php if (!$users): ?>
+                    <!-- Jika data kosong -->
                     <tr>
-                        <td class="data-empty">
+                        <td class="data-empty" colspan="4">
                             Data Kosong
                         </td>
                     </tr>
                 <?php else: ?>
+                    <!-- Jika data tidak kosong -->
                     <?php foreach ($users as $user): ?>
                         <tr>
                             <td>
@@ -82,11 +98,17 @@ $users = getUsersService($role, $username);
                             </td>
 
                             <td class="table-action-column">
+                                <!-- Tombol yang mengarahkan ke halaman sunting menggunakan method GET -->
                                 <a href="<?= BASE_URL . "admin/akun/sunting.php?id=" . urlencode($user["id_user"]) . "&role=" . urlencode($user["role"]) ?>" class="btn btn-info">
                                     Sunting
                                 </a>
 
-                                <?php if ($user["id_user"] != $_SESSION["id_user"]): ?>
+                                <!-- 
+                                    Kondisi untuk menyembunyikan tombol hapus ketika data tersebut adalah
+                                    miliknya sendiri, atau ketika data tersebut memiliki role "admin"
+                                 -->
+                                <?php if (($user["id_user"] != $_SESSION["id_user"]) || $user["role"] == "admin"): ?>
+                                    <!-- Tombol yang mengarahkan ke halaman hapus -->
                                     <a href="<?= BASE_URL . "admin/akun/hapus.php?id=" . urlencode($user["id_user"]) . "&role=" . urlencode($user["role"]) ?>" class="btn btn-error">
                                         Hapus
                                     </a>
@@ -99,6 +121,7 @@ $users = getUsersService($role, $username);
         </table>
     </div>
 
+    <!-- Memasukkan footer -->
     <?php include_once __DIR__ . "/../../components/layouts/footer.php" ?>
 </body>
 

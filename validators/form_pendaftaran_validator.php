@@ -1,4 +1,5 @@
 <?php
+// Memasukkan file-file yang diperlukan
 require_once __DIR__ . "/base_validator.php";
 require_once __DIR__ . "/../utils/ukuran_file_konverter.php";
 
@@ -14,14 +15,17 @@ require_once __DIR__ . "/../utils/ukuran_file_konverter.php";
  */
 function validateNamaLengkap(string $field, array &$errors)
 {
+    // Jika nilainya kosong
     if (cekFieldKosong($field)) {
         $errors["nama-lengkap"][] = "Nama lengkap tidak boleh kosong";
     }
 
-    if (!cekAlpha($field) || cekFieldKosong($field)) {
+    // Jika bukan alphabet
+    if (!cekAlpha($field)) {
         $errors["nama-lengkap"][] = "Nama lengkap harus berisi alphabet (A-Z/a-z)";
     }
 
+    // Jika panjang melebihi 50 karakter
     if (strlen($field) > 50) {
         $errors["nama-lengkap"][] = "Panjang maksimal dari nama lengkap adalah 50 karakter";
     }
@@ -35,14 +39,17 @@ function validateNamaLengkap(string $field, array &$errors)
  */
 function validateNik(string $field, array &$errors)
 {
+    // Jika nilai kosong
     if (cekFieldKosong($field)) {
         $errors["nik"][] = "NIK tidak boleh kosong";
     }
 
+    // Jika bukan numerik
     if (!cekNumeric($field)) {
         $errors["nik"][] = "NIK hanya boleh bernilai numerik";
     }
 
+    // Jika panjang tidak sama persis 16 digit
     if (strlen($field) != 16) {
         $errors['nik'][] = "Panjang NIK harus sebanyak 16 digit";
     }
@@ -56,12 +63,15 @@ function validateNik(string $field, array &$errors)
  */
 function validateJenisKelamin(string $field, array &$errors)
 {
+    // Mengkonversi semua nilai ke huruf kecil
     $field = strtolower($field);
 
+    // Jika nilai kosong
     if (cekFieldKosong($field)) {
         $errors["jenis-kelamin"][] = "Jenis kelamin tidak boleh kosong";
     }
 
+    // Jika nilai selain "l" atau "p"
     if (!in_array($field, ["l", 'p'])) {
         $errors["jenis-kelamin"][] = "Jenis kelamin tidak valid";
     }
@@ -75,18 +85,22 @@ function validateJenisKelamin(string $field, array &$errors)
  */
 function validateTempatLahir(string $field, array &$errors)
 {
+    // Jika field kosong
     if (cekFieldKosong($field)) {
         $errors["tempat-lahir"][] = "Tempat lahir Tidak Boleh Kosong";
     }
 
+    // Jika bukan alphabet
     if (!cekAlpha($field)) {
         $errors["tempat-lahir"][] = "Tempat lahir harus berisi alphabet (A-Z/a-z)";
     }
 
+    // Jika panjang dibawah 3 karakter
     if (strlen($field) < 3) {
         $errors["tempat-lahir"][] = "Panjang minimal dari tempat lahir adalah 3 karakter";
     }
 
+    // Jika panjang melebihi 20 karakter
     if (strlen($field) > 20) {
         $errors["tempat-lahir"][] = "Panjang maksimal dari tempat lahir adalah 20 karakter";
     }
@@ -100,12 +114,15 @@ function validateTempatLahir(string $field, array &$errors)
  */
 function validateTanggalLahir(string $field, array &$errors)
 {
+    // Mendapatkan waktu saat ini & tahun saat ini
     $waktuSaatIni = new DateTime();
     $tahunSaatIni = (int) $waktuSaatIni->format("Y");
 
-    $batasTahunMaksimal = $tahunSaatIni - 21;
-    $batasTahunMinimal = $tahunSaatIni - 15;
+    // Batas minimal & maksimal tahun lahir dari pendaftar
+    $batasTahunMinimal = $tahunSaatIni - 21;
+    $batasTahunMaksimal = $tahunSaatIni - 15;
 
+    // Jika field kosong
     if (cekFieldKosong($field)) {
         $errors["tanggal-lahir"][] = "Tanggal lahir tidak boleh kosong";
     }
@@ -119,14 +136,17 @@ function validateTanggalLahir(string $field, array &$errors)
         return;
     }
 
-    if ($tahunLahir > $batasTahunMinimal) {
+    // Jika input tahun lahir lebih besar batas maksimal
+    if ($tahunLahir > $batasTahunMaksimal) {
         $errors["tanggal-lahir"][] = "Usia anda terlalu muda untuk mendaftar";
     }
 
-    if ($tahunLahir < $batasTahunMaksimal) {
+    // Jika input tahun lahir lebih kecil dari batas minimal
+    if ($tahunLahir < $batasTahunMinimal) {
         $errors["tanggal-lahir"][] = "Usia anda terlalu tua untuk mendaftar";
     }
 
+    // Jika tahun lahir melebihi dari tahun saat ini (masa depan)
     if ($tahunLahir > $tahunSaatIni) {
         $errors["tanggal-lahir"][] = "Tahun yang anda masukkan lebih besar dari tahun saat ini";
     }
@@ -140,18 +160,22 @@ function validateTanggalLahir(string $field, array &$errors)
  */
 function validateAsalSekolah(string $field, array &$errors)
 {
+    // Jika kosong
     if (cekFieldKosong($field)) {
         $errors["asal_sekolah"][] = "Asal sekolah tidak boleh kosong";
     }
 
+    // Jika bukan alphabet
     if (!cekAlpha($field)) {
         $errors["asal-sekolah"][] = "Asal sekolah harus berisi karakter alphabet (A-Z/a-z)";
     }
 
+    // Jika panjang dibawah 3 karakter
     if (strlen($field) < 3) {
         $errors["asal-sekolah"][] = "Panjang minimal dari asal sekolah adalah 3 karakter";
     }
 
+    // Jika panjang diatas 50 karakter
     if (strlen($field) > 50) {
         $errors["asal-sekolah"][] = "Panjang maksimal dari asal sekolah adalah 50 karakter";
     }
@@ -165,6 +189,7 @@ function validateAsalSekolah(string $field, array &$errors)
  */
 function validateJurusan(string $field, array &$errors)
 {
+    // Jika kosong
     if (cekFieldKosong($field)) {
         $errors["jurusan"][] = "Jurusan tidak boleh kosong";
     }
@@ -178,6 +203,7 @@ function validateJurusan(string $field, array &$errors)
  */
 function validateProgram(string $field, array &$errors)
 {
+    // Jika kosong
     if (cekFieldKosong($field)) {
         $errors["program"][] = "Program tidak boleh kosong";
     }
@@ -194,17 +220,21 @@ function validateProgram(string $field, array &$errors)
  */
 function validateFileUpload(mixed $field, string $namaField, int $ukuranMaks, string $ekstensiValidasi, array &$errors)
 {
+    // Ekstensi file yang diupload
     $ekstensiFile = pathinfo($field["name"], PATHINFO_EXTENSION);
 
+    // Jika file yang diupload kosong
     if ($field["name"] == "") {
         $errors[$namaField][] = "Tidak boleh kosong, upload file sesuai yang diminta";
     }
 
+    // Jika ukuran file melebihi batas maksimal
     if ($field["size"] > $ukuranMaks) {
         $ukuranMb = bitKeMegabit($ukuranMaks);
         $errors[$namaField][] = "Maksimal ukuran file adalah $ukuranMb Mb";
     }
 
+    // Jika ekstensi file tidak valid
     if ($ekstensiFile != $ekstensiValidasi) {
         $errors[$namaField][] = "Ekstensi file hanya boleh berupa .$ekstensiValidasi";
     }
@@ -218,10 +248,12 @@ function validateFileUpload(mixed $field, string $namaField, int $ukuranMaks, st
  */
 function validatePersetujuanAsrama(string $field, array &$errors)
 {
+    // Jika kosong
     if (cekFieldKosong($field)) {
         $errors["persetujuan-asrama"][] = "Anda wajib menyetujui ketentuan kami";
     }
 
+    // Jika calon siswa tidak menyetujui
     if ($field != "true") {
         $errors["persetujuan-asrama"][] = "Anda wajib menyetujui ketentuan kami";
     }
@@ -235,10 +267,12 @@ function validatePersetujuanAsrama(string $field, array &$errors)
  */
 function validatePersetujuanHp(string $field, array &$errors)
 {
+    // Jika kosong
     if (cekFieldKosong($field)) {
         $errors["persetujuan-hp"][] = "Anda wajib menyetujui ketentuan kami";
     }
 
+    // Jika calon siswa tidak menyetujui
     if ($field != "true") {
         $errors["persetujuan-hp"][] = "Anda wajib menyetujui ketentuan kami";
     }

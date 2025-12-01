@@ -1,10 +1,13 @@
 <?php
+// Memasukkan file-file yang diperlukan
 require_once __DIR__ . "/../../config.php";
 ?>
 
+<!-- Navbar yang ditampilkan di keseluruhan halaman web -->
 <nav>
     <div class="navbar-menu">
         <ul>
+            <!-- Menentukan menu apa yang akan ditampilkan (ini berdasarkan role user nya) -->
             <?php if (isset($_SESSION["role"])): ?>
                 <?php if ($_SESSION["role"] == "admin"): ?>
                     <li><a href="<?= BASE_URL . "admin" ?>">Dashboard</a></li>
@@ -22,12 +25,19 @@ require_once __DIR__ . "/../../config.php";
         </ul>
     </div>
 
+    <!-- Menampilkan nama sekolah -->
     <div class="branding">
         <h1>
             <?= SCHOOL_NAME ?>
         </h1>
     </div>
 
+    <!--
+        Menentukan tombol apa yang ditampilkan di bagian navbar.
+
+        - Jika user belum melakukan proses login, maka akan ditampilkan tombol "login" & "register"
+        - Jika user sudah melakukan proses login, maka akan ditampilkan tombol "buka akun" untuk mengakses profil
+    -->
     <?php if (!isset($_SESSION["username"])): ?>
         <div class="login-register">
             <a href="<?= BASE_URL . "login.php" ?>" class="btn btn-neutral">

@@ -1,8 +1,10 @@
 <?php
+// Memasukkan file-file yang diperlukan
 require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . '/../services/form_pendaftaran_service.php';
 require_once __DIR__ . "/../config.php";
 
+// Mengambil data-data riwayat pendaftaran menggunakan ID calon siswa
 $daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_user"]);
 ?>
 
@@ -10,13 +12,16 @@ $daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_us
 <html>
 
 <head>
+	<!-- Memasukkan konfigurasi head -->
 	<?php include_once __DIR__ . "/../components/layouts/meta_title.php" ?>
 
+	<!-- Memasukkan CSS yang diperlukan -->
 	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
 	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/calon_siswa.css" ?>">
 </head>
 
 <body>
+	<!-- Memasukkan navbar -->
 	<?php include_once __DIR__ . "/../components/layouts/navbar.php" ?>
 
 	<div class="container" id="calon-siswa-riwayat-pendaftaran">
@@ -26,9 +31,12 @@ $daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_us
 
 		<hr class="divider">
 
+		<!-- Menampilkan semua riwayat pendaftaran -->
 		<div class="riwayat-container">
 			<?php if ($daftarRiwayatFormPendaftaran): ?>
+				<!-- Jika data ada -->
 				<?php foreach ($daftarRiwayatFormPendaftaran as $data): ?>
+					<!-- Mengambil data-data dokumen yang diupload -->
 					<?php $dokumenUpload = daftarRiwayatUploadDokumen($data["id_form_pendaftaran"]) ?>
 
 					<table>
@@ -97,13 +105,16 @@ $daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_us
 					</table>
 				<?php endforeach ?>
 			<?php else: ?>
+				<!-- Jika data kosong -->
 				<div class="riwayat-card">
-					<!--  -->
+					<p>
+						Data Kosong
+					</p>
 				</div>
 			<?php endif ?>
 		</div>
 	</div>
 
-
+	<!-- Memasukkan footer -->
 	<?php include_once __DIR__ . "/../components/layouts/footer.php" ?>
 </body>

@@ -1,13 +1,21 @@
 <?php
+// Memasukkan file yang diperlukan
 require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . "/../../services/jurusan_service.php";
 require_once __DIR__ . "/../../config.php";
 
-$majors = daftarJurusanService();
+// Mengambil data-data jurusan
+$daftarJurusan = daftarJurusanService();
 
+/**
+ * Menangani jika terdapat filter dengan nama jurusan
+ */
 if (isset($_POST["nama-jurusan"])) {
-    $majorName = htmlspecialchars($_POST["nama-jurusan"]);
-    $majors = daftarJurusanService($majorName);
+    // htmlspecialchars untuk menghindari XSS
+    $namaJurusan = htmlspecialchars($_POST["nama-jurusan"]);
+
+    // Memperbarui data yang diambil ketika terdapat filter
+    $daftarJurusan = daftarJurusanService($namaJurusan);
 }
 ?>
 
@@ -15,13 +23,16 @@ if (isset($_POST["nama-jurusan"])) {
 <html lang="en">
 
 <head>
+    <!-- Memasukkan konfigurasi head -->
     <?php include_once __DIR__ . "/../../components/layouts/meta_title.php" ?>
 
+    <!-- Memasukkan CSS yang dibutuhkan -->
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/admin.css" ?>">
 </head>
 
 <body>
+    <!-- Memasukkan navbar -->
     <?php include __DIR__ . "/../../components/layouts/navbar.php" ?>
 
     <div class="container" id="daftar-jurusan">
@@ -32,14 +43,16 @@ if (isset($_POST["nama-jurusan"])) {
         <hr class="divider">
 
         <div class="search-add">
+            <!-- Tombol untuk mengarahkan user ke halaman tambah -->
             <a href="<?= BASE_URL . "/admin/jurusan/tambah.php" ?>" class="btn btn-info">
                 Tambah Data
             </a>
 
+            <!-- Form untuk melakukan filter jurusan -->
             <form action="" method="post" class="filter">
                 <div class="input-container">
                     <label for="nama-jurusan">Nama Jurusan</label>
-                    <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $majorName ?? '' ?>">
+                    <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $namaJurusan ?? '' ?>">
                 </div>
 
                 <button type="submit" class="btn btn-neutral">
@@ -48,6 +61,7 @@ if (isset($_POST["nama-jurusan"])) {
             </form>
         </div>
 
+        <!-- Tabel untuk menampilkan data-data jurusan -->
         <table class="data-table">
             <thead>
                 <tr>
@@ -58,24 +72,26 @@ if (isset($_POST["nama-jurusan"])) {
             </thead>
 
             <tbody>
-                <?php if (!$majors): ?>
+                <?php if (!$daftarJurusan): ?>
+                    <!-- Jika data kosong -->
                     <tr>
                         <td class="data-empty" colspan="3">
                             Data Kosong
                         </td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($majors as $major): ?>
+                    <!-- Jika data ada -->
+                    <?php foreach ($daftarJurusan as $data): ?>
                         <tr>
-                            <td><?= $major["nama_jurusan"] ?></td>
-                            <td><?= $major["deskripsi_jurusan"] ?></td>
+                            <td><?= $data["nama_jurusan"] ?></td>
+                            <td><?= $data["deskripsi_jurusan"] ?></td>
 
                             <td class="table-action-column">
-                                <a href="<?= BASE_URL . "admin/jurusan/sunting.php?id=" . urlencode($major["id_jurusan"]) ?>" class="btn btn-info">
+                                <a href="<?= BASE_URL . "admin/jurusan/sunting.php?id=" . urlencode($data["id_jurusan"]) ?>" class="btn btn-info">
                                     Sunting
                                 </a>
 
-                                <a href="<?= BASE_URL . "admin/jurusan/hapus.php?id=" . urlencode($major["id_jurusan"]) ?>" class="btn btn-error">
+                                <a href="<?= BASE_URL . "admin/jurusan/hapus.php?id=" . urlencode($data["id_jurusan"]) ?>" class="btn btn-error">
                                     Hapus
                                 </a>
                             </td>
@@ -86,6 +102,7 @@ if (isset($_POST["nama-jurusan"])) {
         </table>
     </div>
 
+    <!-- Memasukkan footer -->
     <?php include __DIR__ . "/../../components/layouts/footer.php" ?>
 </body>
 

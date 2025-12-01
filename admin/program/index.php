@@ -1,13 +1,19 @@
 <?php
+// Memasukkan file yang diperlukan
 require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../../validators/program_validator.php";
 require_once __DIR__ . "/../../services/program_service.php";
 
+// Mengambil semua data dari tabel program
 $daftarProgram = daftarProgramService();
 
+// Menangani jika terdapat request filter
 if (isset($_GET["nama-program"])) {
-    $namaProgram = $_GET["nama-program"];
+    // htmlspecialchars untuk menghindari serangan XSS
+    $namaProgram = htmlspecialchars($_GET["nama-program"]);
+
+    // Memperbarui daftar program untuk melakukan proses filter
     $daftarProgram = daftarProgramService($namaProgram);
 }
 ?>
@@ -16,13 +22,16 @@ if (isset($_GET["nama-program"])) {
 <html lang="en">
 
 <head>
+    <!-- Memasukkan konfigurasi head -->
     <?php include_once  __DIR__ . "/../../components/layouts/meta_title.php" ?>
 
+    <!-- Memasukkan CSS yang diperlukan -->
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/admin.css" ?>">
 </head>
 
 <body>
+    <!-- Memasukkan navbawwr -->
     <?php include_once __DIR__ . "/../../components/layouts/navbar.php" ?>
 
     <div class="container" id="daftar-program">
@@ -33,10 +42,12 @@ if (isset($_GET["nama-program"])) {
         <hr class="divider">
 
         <div class="filter-section">
+            <!-- Tombol untuk mengarahkan user ke halaman tambah program -->
             <a href="<?= BASE_URL . "admin/program/tambah.php" ?>" class="btn btn-info">
                 Tambah Program
             </a>
 
+            <!-- Form untuk melakukan filter program berdasarkan namanya -->
             <form action="" method="get">
                 <div class="input-container">
                     <label for="nama-program">Nama program</label>
@@ -49,6 +60,7 @@ if (isset($_GET["nama-program"])) {
             </form>
         </div>
 
+        <!-- Tabel yang menampilkan data dari tabel program -->
         <table class="data-table">
             <thead>
                 <tr>
@@ -60,6 +72,7 @@ if (isset($_GET["nama-program"])) {
 
             <tbody>
                 <?php if ($daftarProgram): ?>
+                    <!-- Jika data ada -->
                     <?php foreach ($daftarProgram as $program): ?>
                         <tr>
                             <td><?= $program["nama_program"] ?></td>
@@ -76,6 +89,7 @@ if (isset($_GET["nama-program"])) {
                         </tr>
                     <?php endforeach ?>
                 <?php else: ?>
+                    <!-- Jika data tidak ada -->
                     <tr>
                         <td class="data-empty" colspan="3">
                             Data Kosong
@@ -86,6 +100,7 @@ if (isset($_GET["nama-program"])) {
         </table>
     </div>
 
+    <!-- Memasukkan footer -->
     <?php include_once __DIR__ . "/../../components/layouts/footer.php" ?>
 </body>
 

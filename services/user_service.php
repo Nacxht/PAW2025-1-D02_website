@@ -1,4 +1,5 @@
 <?php
+// Memasukkan file-file yang diperlukan
 require_once __DIR__ . '/../db_conn.php';
 
 /**
@@ -12,8 +13,10 @@ require_once __DIR__ . '/../db_conn.php';
  */
 function addUserService(array $data, string $role = "calon_siswa")
 {
+    // Menentukan tabel apa yang akan ditambah datanya
     $table = $role == "admin" ? "admin" : "calon_siswa";
 
+    // Query untuk menambah data ke tabel yang ditentukan
     $stmt = DBH->prepare(
         "INSERT INTO
             $table (username, email, password)
@@ -21,6 +24,7 @@ function addUserService(array $data, string $role = "calon_siswa")
             (:username, :email, :password)"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":username" => htmlspecialchars($data["username"]),
         ":email" => htmlspecialchars($data["email"]),
@@ -39,6 +43,12 @@ function addUserService(array $data, string $role = "calon_siswa")
  */
 function getUsersService(string $role = "", string $username = "")
 {
+    /**
+     * Query untuk mendapatkan semua data pengguna.
+     * 
+     * Query ini memiliki sub-query untuk menggabungkan dua query.
+     * Hal ini dilakukan dikarenakan user dipisah menjadi dua tabel.
+     */
     $stmt = DBH->prepare(
         "SELECT user.* FROM
         (
@@ -66,11 +76,13 @@ function getUsersService(string $role = "", string $username = "")
             user.username LIKE :username"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":role" => $role ? $role : "%%",
         ":username" => "%$username%"
     ]);
 
+    // Mengembalikan semua row
     return $stmt->fetchAll();
 }
 
@@ -83,8 +95,10 @@ function getUsersService(string $role = "", string $username = "")
  */
 function getUserByID(int $userId, string $role)
 {
+    // Menentukan tabel apa yang akan digunakan
     $table = $role == "admin" ? "admin" : "calon_siswa";
 
+    // Query untuk mendapatkan data pengguna berdasarkan ID user
     $stmt = DBH->prepare(
         "SELECT
             id_$role id_user,
@@ -98,12 +112,16 @@ function getUserByID(int $userId, string $role)
             id_$table = :id_user"
     );
 
+    // Mengeksekusi query
     $stmt->execute([":id_user" => $userId]);
+
+    // Mengembalikan row pertama (jika ada)
     return $stmt->fetch();
 }
 
 /**
  * Fungsi yang digunakan untuk memperbarui data pengguna
+ * berdasarkan ID pengguna
  * 
  * @param array $data - Data yang telah tervalidasi
  * @param string $role - Role dari data yang akan disunting (Admin/Calon Siswa)
@@ -111,8 +129,10 @@ function getUserByID(int $userId, string $role)
  */
 function updateUserService(array $data, string $role, int $userId)
 {
+    // menentukan tabel apa yang akan digunakan
     $table = $role == "admin" ? "admin" : "calon_siswa";
 
+    // Query untuk memperbarui data pengguna berdasarkan ID pengguna
     $stmt = DBH->prepare(
         "UPDATE
             $table
@@ -123,6 +143,7 @@ function updateUserService(array $data, string $role, int $userId)
             id_$table = :id_user"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":username" => htmlspecialchars($data["username"]),
         ":email" => htmlspecialchars($data["email"]),
@@ -131,41 +152,17 @@ function updateUserService(array $data, string $role, int $userId)
 }
 
 /**
- * Fungsi untuk memperbarui password milik pengguna
- * 
- * @param string $password - Password baru
- * @param int $userId - ID pengguna yang passwordnya akan diperbarui
- * @param string $role - Role dari pengguna yang passwordnya akan diperbarui
- */
-function updateUserPasswordService(string $password, int $userId, string $role)
-{
-    $table = $role == "admin" ? "admin" : "calon_siswa";
-    $hashed = password_hash($password, PASSWORD_BCRYPT);
-
-    $stmt = DBH->prepare(
-        "UPDATE
-            $table
-        SET
-            password = :password
-        WHERE id_$table = :id_user"
-    );
-
-    $stmt->execute([
-        ":password" => htmlspecialchars($hashed),
-        ":user_id" => $userId
-    ]);
-}
-
-/**
- * Fungsi untuk menghapus data pengguna
+ * Fungsi untuk menghapus data pengguna berdasarkan ID pengguna
  * 
  * @param int $userId - ID dari data pengguna yang akan dihapus
  * @param string $role - Role dari data pengguna yang akan dihapus
  */
 function deleteUserService(int $userId, string $role)
 {
+    // Menentukan tabel apa yang akan digunakan
     $table = $role == "admin" ? "admin" : "calon_siswa";
 
+    // Query untuk menghapus data pengguna berdasarkan ID pengguna
     $stmt = DBH->prepare(
         "DELETE FROM
             $table
@@ -173,6 +170,7 @@ function deleteUserService(int $userId, string $role)
             id_$table = :id_user"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":id_user" => $userId
     ]);
@@ -183,6 +181,14 @@ function deleteUserService(int $userId, string $role)
  */
 function getUserCountService()
 {
+    /**
+     * Query untuk mendapatkan jumlah data pengguna.
+     * Query ini juga menampilkan jumlah admin dan total calon siswa.
+     * 
+     * Query ini menggabung dua sub-query menggunakan klausa JOIN.
+     * Setiap sub-query digunakan untuk mendapatkan jumlah baris di
+     * masing-masing tabel (admin & calon siswa).
+     */
     $stmt = DBH->prepare(
         "SELECT
             *,
@@ -197,6 +203,9 @@ function getUserCountService()
         ) c"
     );
 
+    // Mengeksekusi query
     $stmt->execute();
+
+    // Mengembalikan row pertama
     return $stmt->fetch();
 }

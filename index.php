@@ -1,5 +1,8 @@
 <?php
+// Memasukkan file yang diperlukan
 require_once __DIR__ . "/config.php";
+
+// Memulai session
 session_start();
 ?>
 
@@ -7,15 +10,16 @@ session_start();
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Memasukkan konfigurasi head -->
+    <?php include_once __DIR__ . "/components/layouts/meta_title.php" ?>
 
+    <!-- Memasukkan CSS yang diperlukan -->
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "assets/css/homepage.css" ?>">
 </head>
 
 <body>
+    <!-- Memasukkan navbar -->
     <?php require_once __DIR__ . "/components/layouts/navbar.php" ?>
 
     <div class="container">
@@ -38,6 +42,7 @@ session_start();
                 </div>
 
                 <div class="buttons-container">
+                    <!-- Tombol yang mengarahkan user ke halaman pendaftaran (jika belum login otomatis diarahkan ke login) -->
                     <a href="<?= BASE_URL . "calon_siswa/form_pendaftaran.php" ?>" class="btn btn-primary">
                         Pendaftaran Siswa
                     </a>
@@ -104,25 +109,9 @@ session_start();
                 </ul>
             </div>
         </div>
-
-        <!-- <hr class="divider">
-
-        <div id="school-majors">
-            <div class="title-description">
-                <h1>Jurusan atau Keahlian</h1>
-
-                <p>
-                    Pilih jalan karir masa depanmu bersama SMK Teknologi
-                    Bina Insan
-                </p>
-            </div>
-
-            <div class="majors-container">
-
-            </div>
-        </div> -->
     </div>
 
+    <!-- Memasukkan footer -->
     <?php require_once __DIR__ . "/components/layouts/footer.php" ?>
 </body>
 

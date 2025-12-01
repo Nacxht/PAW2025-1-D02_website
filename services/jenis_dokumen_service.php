@@ -1,4 +1,5 @@
 <?php
+// Memasukkan file-file yang diperlukan
 require_once __DIR__ . "/../db_conn.php";
 
 /**
@@ -8,6 +9,7 @@ require_once __DIR__ . "/../db_conn.php";
  */
 function tambahJenisDokumenService(array $data)
 {
+    // Query untuk menambah jenis dokumen
     $stmt = DBH->prepare(
         "INSERT INTO
             jenis_dokumen (jenis_dokumen)
@@ -15,16 +17,18 @@ function tambahJenisDokumenService(array $data)
             (:jenis_dokumen)"
     );
 
+    // Mengeksekusi query
     $stmt->execute(["jenis_dokumen" => $data["nama-jenis-dokumen"]]);
 }
 
 /**
- * Fungsi untuk menampilkan data-data tabel jenis dokumen
+ * Fungsi untuk menampilkan semua data dari tabel jenis dokumen
  * 
  * @param string $jenisDokumen - Nama dari jenis dokumen
  */
 function daftarJenisDokumenService(string $jenisDokumen = "")
 {
+    // Query untuk mendapatkan semua data dari tabel jenis dokumen
     $stmt = DBH->prepare(
         "SELECT
             *
@@ -34,19 +38,23 @@ function daftarJenisDokumenService(string $jenisDokumen = "")
             jenis_dokumen LIKE :jenis_dokumen"
     );
 
+
+    // Mengeksekusi query
     $stmt->execute([":jenis_dokumen" => "%$jenisDokumen%"]);
 
+    // Mengembalikan semua row
     return $stmt->fetchAll();
 }
 
 /**
- * Fungsi untuk menampilkan data spesifik dari tabel jenis dokumen
+ * Fungsi untuk mendapatkan data spesifik dari tabel jenis dokumen
  * berdasarkan ID-nya
  * 
  * @param int $id - ID data dari tabel jenis dokumen
  */
 function detailJenisDokumenService(int $id)
 {
+    // Query untuk mendapatkan data spesifik jenis dokumen dari id jenis dokumen
     $stmt = DBH->prepare(
         "SELECT
             *
@@ -55,8 +63,10 @@ function detailJenisDokumenService(int $id)
         WHERE id_jenis_dokumen = :id_jenis_dokumen"
     );
 
+    // Mengeksekusi query
     $stmt->execute([":id_jenis_dokumen" => $id]);
 
+    // Mengembalikan row pertama (jika ada)
     return $stmt->fetch();
 }
 
@@ -69,6 +79,7 @@ function detailJenisDokumenService(int $id)
  */
 function suntingJenisDokumenService(array $data, int $id)
 {
+    // Query untuk memperbarui data jenis dokumen
     $stmt = DBH->prepare(
         "UPDATE
             jenis_dokumen
@@ -78,6 +89,7 @@ function suntingJenisDokumenService(array $data, int $id)
             id_jenis_dokumen = :id_jenis_dokumen"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":jenis_dokumen" => $data["nama-jenis-dokumen"],
         ":id_jenis_dokumen" => $id
@@ -92,6 +104,7 @@ function suntingJenisDokumenService(array $data, int $id)
  */
 function hapusJenisDokumenService(int $id)
 {
+    // Query untuk menghapus jenis dokumen
     $stmt = DBH->prepare(
         "DELETE FROM    
             jenis_dokumen
@@ -99,5 +112,6 @@ function hapusJenisDokumenService(int $id)
             id_jenis_dokumen = :id_jenis_dokumen"
     );
 
+    // Mengeksekusi query
     $stmt->execute([":id_jenis_dokumen" => $id]);
 }

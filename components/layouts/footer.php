@@ -1,3 +1,4 @@
+<!-- Footer yang akan ditampilkan di semua halaman web -->
 <footer>
     <p>
         &copy; 2025 PPDB Sekolah Berbasis Pesantren Developer Team

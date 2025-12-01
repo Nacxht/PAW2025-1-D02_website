@@ -1,17 +1,23 @@
 <?php
+// Memasukkan file yang diperlukan
 require_once __DIR__ . "/auth_middleware/after_login_middleware.php";
 require_once __DIR__ . "/services/autentikasi_service.php";
 require_once __DIR__ . "/validators/user_validator.php";
 
+// Menangani proses login
 if (isset($_POST["login-submit"])) {
-	$username = $_POST["username"];
-	$password = $_POST["password"];
+	// htmlspecialchars untuk menhindari XSS
+	$username = htmlspecialchars($_POST["username"]);
+	$password = htmlspecialchars($_POST["password"]);
 
+	// Array yang menyimpan pesan-pesan error
 	$errors = [];
 
+	// Memvalidasi input
 	validateLoginUsername($username, $errors);
 	validateLoginPassword($password, $errors);
 
+	// Jika tidak error, lakukan proses login
 	if (!$errors) {
 		loginService($_POST, $errors);
 	}
@@ -22,10 +28,10 @@ if (isset($_POST["login-submit"])) {
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<!-- Memasukkan konfigurasi head -->
+	<?php include_once __DIR__ . "/components/layouts/meta_title.php" ?>
 
+	<!-- Memasukkan CSS yang diperlukan -->
 	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
 	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/login_register.css" ?>">
 </head>
@@ -47,6 +53,7 @@ if (isset($_POST["login-submit"])) {
 			<hr class="divider">
 
 			<div id="form-container">
+				<!-- Memasukkan form login -->
 				<?php include __DIR__ . "/components/forms/login_form.php" ?>
 			</div>
 
@@ -56,6 +63,7 @@ if (isset($_POST["login-submit"])) {
 
 			<hr class="divider">
 
+			<!-- Tombol untuk kembali ke beranda -->
 			<p>
 				Atau Kembali ke
 				<a href="<?= BASE_URL ?>">

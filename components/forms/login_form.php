@@ -1,8 +1,10 @@
+<!-- Form yang berisi input-input untuk halaman login -->
 <form action="login.php" method="post">
     <div class="input-container">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" value="<?= $username ?? "" ?>">
 
+        <!-- Menampilkna pesan error -->
         <?php if (isset($errors["username"])): ?>
             <ul>
                 <?php foreach ($errors["username"] as $error): ?>
@@ -18,6 +20,7 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
 
+        <!-- Menampilkna pesan error -->
         <?php if (isset($errors["password"])): ?>
             <ul>
                 <?php foreach ($errors["password"] as $error): ?>
@@ -29,6 +32,7 @@
         <?php endif ?>
     </div>
 
+    <!-- Menampilkna pesan error -->
     <?php if (isset($errors["login"])): ?>
         <div class="process-error">
             <p><?= $errors["login"] ?></p>

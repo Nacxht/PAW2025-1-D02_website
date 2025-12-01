@@ -1,4 +1,5 @@
 <?php
+// Memasukkan file-file yang diperlukan
 require_once __DIR__ . "/../db_conn.php";
 
 /**
@@ -8,6 +9,7 @@ require_once __DIR__ . "/../db_conn.php";
  */
 function tambahProgramService(array $data)
 {
+    // Query untuk menambah program
     $stmt = DBH->prepare(
         "INSERT INTO
             program (nama_program, deskripsi_program)
@@ -15,6 +17,7 @@ function tambahProgramService(array $data)
             (:nama_program, :deskripsi_program)"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":nama_program" => htmlspecialchars($data["nama-program"]),
         ":deskripsi_program" => htmlspecialchars($data["deskripsi-program"])
@@ -22,7 +25,7 @@ function tambahProgramService(array $data)
 }
 
 /**
- * Fungsi untuk menampilkan semua data di dalam tabel program
+ * Fungsi untuk mendapatkan semua data di dalam tabel program
  * 
  * Fungsi ini dilengkapi dengan filter untuk melakukan pencarian
  * bedasarkan nama program
@@ -31,6 +34,7 @@ function tambahProgramService(array $data)
  */
 function daftarProgramService(string $namaProgram = "")
 {
+    // Query untuk mendapatkan semua data dari tabel program
     $stmt = DBH->prepare(
         "SELECT
             *
@@ -40,19 +44,22 @@ function daftarProgramService(string $namaProgram = "")
             nama_program LIKE :nama_program"
     );
 
+    // Mengeksekusi query
     $stmt->execute([":nama_program" => "%$namaProgram%"]);
 
+    // Mengembalikan semua row
     return $stmt->fetchAll();
 }
 
 /**
- * Fungsi untuk menampilkan data spesifik di dalam tabel program
+ * Fungsi untuk mendapatkan data spesifik di dalam tabel program
  * bedasarkan ID-nya
  * 
  * @param int $id - ID dari data di tabel program
  */
 function detailProgramService(int $id)
 {
+    // Query untuk mendapatkan data spesifik dari tabel program
     $stmt = DBH->prepare(
         "SELECT
             *
@@ -62,8 +69,10 @@ function detailProgramService(int $id)
             id_program = :id_program"
     );
 
+    // Mengeksekusi query
     $stmt->execute([":id_program" => $id]);
 
+    // Mengembalikan row pertama (jika ada)
     return $stmt->fetch();
 }
 
@@ -76,6 +85,7 @@ function detailProgramService(int $id)
  */
 function suntingProgramService(int $id, array $data)
 {
+    // Query untuk mengupdate data spesifik di tabel program
     $stmt = DBH->prepare(
         "UPDATE
             program
@@ -86,6 +96,7 @@ function suntingProgramService(int $id, array $data)
             id_program = :id_program"
     );
 
+    // Mengeksekusi query
     $stmt->execute([
         ":nama_program" => htmlspecialchars($data["nama-program"]),
         ":deskripsi_program" => htmlspecialchars($data["deskripsi-program"]),
@@ -101,10 +112,12 @@ function suntingProgramService(int $id, array $data)
  */
 function hapusProgramService(int $id)
 {
+    // Query untuk menghapus data di tabel program berdasarkan ID program
     $stmt = DBH->prepare(
         "DELETE FROM program WHERE id_program = :id_program"
     );
 
+    // Mengeksekusi query
     $stmt->execute([":id_program" => $id]);
 }
 
@@ -113,11 +126,14 @@ function hapusProgramService(int $id)
  */
 function jumlahProgramService()
 {
+    // Query untuk menampilkan semua data di tabel program
     $stmt = DBH->prepare(
         "SELECT * FROM program"
     );
 
+    // Mengeksekusi query
     $stmt->execute();
 
+    // Mengembalikan jumlah row
     return $stmt->rowCount();
 }

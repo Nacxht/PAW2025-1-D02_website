@@ -135,12 +135,100 @@
     gap: 1rem;
 }
 
+.container#sunting-akun form.user-account-form button {
+    grid-column: 1 / -1;
+}
+
 /*  */
 
 /* tambah jurusan */
 .container#tambah-jurusan form,
 .container#sunting-jurusan form {
     display: grid;
+    gap: 1rem;
+}
+
+/*  */
+
+/* daftar form pendaftaran */
+.container#admin-daftar-form-pendaftaran .daftar-form-pendaftaran-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.container#admin-daftar-form-pendaftaran table {
+    border: 2px solid var(--color-neutral);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.container#admin-daftar-form-pendaftaran th,
+.container#admin-daftar-form-pendaftaran td {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.container#admin-daftar-form-pendaftaran table hr.divider {
+    margin: 0;
+}
+
+.container#admin-daftar-form-pendaftaran table .btn-column {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.container#admin-daftar-form-pendaftaran table .tertunda {
+    background: var(--color-warning);
+    color: var(--color-warning-text);
+    border: 1px solid var(--color-warning-text);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.container#admin-daftar-form-pendaftaran table .diterima {
+    background: var(--color-success);
+    color: var(--color-success-text);
+    border: 1px solid var(--color-success-text);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.container#admin-daftar-form-pendaftaran table .ditolak {
+    background: var(--color-error);
+    border: 1px solid var(--color-error-text);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+/*  */
+
+/* verifikasi form pendaftaran */
+.container#admin-verifikasi-form-pendaftaran table {
+    border: 1px solid var(--color-neutral);
+    width: 100%;
+    border-spacing: 0;
+}
+
+.container#admin-verifikasi-form-pendaftaran th,
+.container#admin-verifikasi-form-pendaftaran td {
+    border: 1px solid var(--color-neutral);
+    padding: 1rem 0.5rem;
+    text-align: left;
+}
+
+.container#admin-verifikasi-form-pendaftaran th.judul-tabel {
+    text-align: center;
+}
+
+.container#admin-verifikasi-form-pendaftaran td a {
+    color: var(--color-info-hover);
+}
+
+.container#admin-verifikasi-form-pendaftaran td .button-container {
+    display: flex;
+    justify-self: center;
     gap: 1rem;
 }
 
