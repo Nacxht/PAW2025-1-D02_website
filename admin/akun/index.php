@@ -3,7 +3,7 @@ require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . "/../../services/user_service.php";
 require_once __DIR__ . "/../../config.php";
 
-$username = $_GET["username"] ?? "";
+$username = htmlspecialchars($_GET["username"] ?? "");
 $role = $_GET["role"] ?? "";
 $users = getUsersService($role, $username);
 ?>
@@ -31,7 +31,7 @@ $users = getUsersService($role, $username);
         <form action="" method="get" class="filter">
             <div class="input-container">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" value="<?= htmlspecialchars($username ?? "") ?>">
+                <input type="text" name="username" id="username" value="<?= $username ?>">
             </div>
 
             <div class="input-container">

@@ -4,7 +4,7 @@ require_once __DIR__ . "/../../validators/jenis_dokumen_validator.php";
 require_once __DIR__ . "/../../services/jenis_dokumen_service.php";
 
 if (isset($_POST["tambah-jenis-dokumen"])) {
-    $namaJenisDokumen = $_POST["nama-jenis-dokumen"];
+    $namaJenisDokumen = htmlspecialchars($_POST["nama-jenis-dokumen"]);
 
     $errors = [];
 
@@ -42,7 +42,7 @@ if (isset($_POST["tambah-jenis-dokumen"])) {
         <form action="" method="post" class="create-update">
             <div class="input-container">
                 <label for="nama-jenis-dokumen">Nama Jenis Dokumen</label>
-                <input type="text" name="nama-jenis-dokumen" id="nama-jenis-dokumen">
+                <input type="text" name="nama-jenis-dokumen" id="nama-jenis-dokumen" value="<?= $namaJenisDokumen ?? "" ?>">
 
                 <?php if (isset($errors["nama-jenis-dokumen"])): ?>
                     <ul>

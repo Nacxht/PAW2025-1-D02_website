@@ -6,7 +6,8 @@ require_once __DIR__ . "/../../config.php";
 $daftarJenisDokumen = daftarJenisDokumenService();
 
 if (isset($_GET["jenis-dokumen-filter"])) {
-    $daftarJenisDokumen = daftarJenisDokumenService($_GET["jenis-dokumen"]);
+    $jenisDokumen = htmlspecialchars($_GET["jenis-dokumen"]);
+    $daftarJenisDokumen = daftarJenisDokumenService($jenisDokumen);
 }
 ?>
 
@@ -38,7 +39,7 @@ if (isset($_GET["jenis-dokumen-filter"])) {
             <form action="" method="get">
                 <div class="input-container">
                     <label for="jenis-dokumen">Nama Jenis Dokumen</label>
-                    <input type="text" name="jenis-dokumen" id="jenis-dokumen" value="<?= htmlspecialchars($_GET["jenis-dokumen"] ?? '') ?>">
+                    <input type="text" name="jenis-dokumen" id="jenis-dokumen" value="<?= $jenisDokumen ?? '' ?>">
                 </div>
 
                 <button type="submit" class="btn btn-neutral" name="jenis-dokumen-filter">
@@ -57,15 +58,15 @@ if (isset($_GET["jenis-dokumen-filter"])) {
 
             <tbody>
                 <?php if ($daftarJenisDokumen): ?>
-                    <?php foreach ($daftarJenisDokumen as $jenisDokumen): ?>
+                    <?php foreach ($daftarJenisDokumen as $jenisDokumens): ?>
                         <tr>
-                            <td><?= $jenisDokumen["jenis_dokumen"] ?></td>
+                            <td><?= $jenisDokumens["jenis_dokumen"] ?></td>
                             <td class="table-action-column">
-                                <a href="<?= BASE_URL . "admin/jenis_dokumen/sunting.php?id=" . $jenisDokumen["id_jenis_dokumen"] ?>" class="btn btn-info">
+                                <a href="<?= BASE_URL . "admin/jenis_dokumen/sunting.php?id=" . $jenisDokumens["id_jenis_dokumen"] ?>" class="btn btn-info">
                                     Sunting
                                 </a>
 
-                                <a href="<?= BASE_URL . "admin/jenis_dokumen/hapus.php?id=" . $jenisDokumen["id_jenis_dokumen"] ?>" class="btn btn-error">
+                                <a href="<?= BASE_URL . "admin/jenis_dokumen/hapus.php?id=" . $jenisDokumens["id_jenis_dokumen"] ?>" class="btn btn-error">
                                     Hapus
                                 </a>
                             </td>

@@ -4,8 +4,8 @@ require_once __DIR__ . "/../../services/jurusan_service.php";
 require_once __DIR__ . "/../../validators/jurusan_validator.php";
 
 if (isset($_POST["add-major"])) {
-    $majorName = $_POST["nama-jurusan"];
-    $majorDescription = $_POST["deskripsi-jurusan"];
+    $majorName = htmlspecialchars($_POST["nama-jurusan"]);
+    $majorDescription = htmlspecialchars($_POST["deskripsi-jurusan"]);
 
     $errors = [];
 
@@ -43,7 +43,7 @@ if (isset($_POST["add-major"])) {
         <form action="" method="post">
             <div class="input-container">
                 <label for="nama-jurusan">Nama Jurusan</label>
-                <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= htmlspecialchars($majorName ?? "") ?>">
+                <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $majorName ?? "" ?>">
 
                 <?php if (isset($errors["nama-jurusan"])): ?>
                     <ul>
