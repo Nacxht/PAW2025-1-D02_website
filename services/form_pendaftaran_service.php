@@ -214,7 +214,7 @@ function hapusFormPendaftaranService(int $id)
  * 
  * @param int $idCalonSiswa - ID dari calon siswa
  */
-function daftarRiwayatPendaftaran(int $idCalonSiswa)
+function daftarRiwayatPendaftaranService(int $idCalonSiswa)
 {
     try {
         $stmt = DBH->prepare(
@@ -276,6 +276,23 @@ function daftarRiwayatUploadDokumen(int $idFormPendaftaran)
         ]);
 
         return $stmt->fetchAll();
+    } catch (Exception $error) {
+        die("Terdapat masalah pada server");
+    }
+}
+
+function jumlahPendaftarService()
+{
+    try {
+        $stmt = DBH->prepare(
+            "SELECT
+                id_form_pendaftaran
+            FROM
+                form_pendaftaran"
+        );
+
+        $stmt->execute();
+        return $stmt->rowCount();
     } catch (Exception $error) {
         die("Terdapat masalah pada server");
     }

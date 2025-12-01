@@ -3,7 +3,7 @@ require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . '/../services/form_pendaftaran_service.php';
 require_once __DIR__ . "/../config.php";
 
-$daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaran($_SESSION["id_user"]);
+$daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_user"]);
 ?>
 
 <!DOCTYPE html>
