@@ -1,48 +1,109 @@
 <?php
 require_once __DIR__ . "/../auth_middleware/before_login_middleware.php";
-require_once __DIR__ . '/../services/riwayat_pendaftaran.php';
+require_once __DIR__ . '/../services/form_pendaftaran_service.php';
+require_once __DIR__ . "/../config.php";
+
+$daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaran($_SESSION["id_user"]);
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<?php include_once __DIR__ . "/../components/layouts/meta_title.php" ?>
+
 	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/main.css" ?>">
+	<link rel="stylesheet" href="<?= BASE_URL . "assets/css/calon_siswa.css" ?>">
 </head>
 
 <body>
-
-
 	<?php include_once __DIR__ . "/../components/layouts/navbar.php" ?>
 
-	<div class="container">
-		<h1>Riwayat Pendaftaran Anda</h1>
-		<?php foreach ($data as $dt): ?>
-			<a href="">
-				<p>Tanggal Daftar : <?= $dt['tanggal_daftar'] ?></p>
-			</a>
+	<div class="container" id="calon-siswa-riwayat-pendaftaran">
+		<h1>
+			Riwayat Pendaftaran Anda
+		</h1>
 
-			<P>Nama Lengkap : <?= $dt['nama_lengkap'] ?></P>
-			<P>Nik : <?= $dt['nik'] ?></P>
-			<P>Jenis Kelamin : <?= $dt['jenis_kelamin'] ?></P>
-			<P>Tempat Lahir : <?= $dt['tempat_lahir'] ?></P>
-			<P>Tanggal lahir : <?= $dt['tanggal_lahir'] ?></P>
-			<P>Asal Sekolah : <?= $dt['asal_sekolah'] ?></P>
-			<P>Jurusan : <?= $dt['jurusan'] ?></P>
-			<P>Akta Kelahiran : <a href="../assets/uploads/<?= $dt['akta_kelahiran'] ?? '' ?>">Lihat</a></P>
-			<P>Kartu Keluarga : <a href="../assets/uploads/<?= $dt['kartu_keluarga'] ?? '' ?>">Lihat</a></P>
-			<P>Rapor : <a href="../assets/uploads/<?= $dt['rapor'] ?? '' ?>">Lihat</a></P>
-			<P>Surat Keterangan Lulus : <a href="../assets/uploads/<?= $dt['surat_keterangan_lulus'] ?? '' ?>">Lihat</a></P>
-			<P>Surat Kesehatan :<a href="../assets/uploads/<?= $dt['surat_kesehatan'] ?? '' ?>">Lihat</a></P>
-			<P>Foto : <a href="../assets/uploads/<?= $dt['pasfoto'] ?? '' ?>">Lihat</a></P>
-			<p>=============================================</p>
-		<?php endforeach ?>
+		<hr class="divider">
+
+		<div class="riwayat-container">
+			<?php if ($daftarRiwayatFormPendaftaran): ?>
+				<?php foreach ($daftarRiwayatFormPendaftaran as $data): ?>
+					<?php $dokumenUpload = daftarRiwayatUploadDokumen($data["id_form_pendaftaran"]) ?>
+
+					<table>
+						<?php foreach ($data as $namaKey => $nilai): ?>
+							<?php
+							$namaBaris = ucwords(str_replace("_", " ", $namaKey));
+							$namaKelasStatus = "";
+
+							if ($namaKey == "status") {
+								$namaKelasStatus = $nilai;
+							}
+
+							if ($namaKey == "id_form_pendaftaran") {
+								continue;
+							}
+							?>
+
+							<tr>
+								<th>
+									<?= $namaBaris ?>
+								</th>
+
+								<td>:</td>
+
+								<td class="<?= $namaKelasStatus ?? "" ?>">
+									<?php
+									switch ($namaKey) {
+										case "jenis_kelamin":
+											echo $nilai == "P" ? "Perempuan" : "Laki-Laki";
+											break;
+
+										case "persetujuan_tidak_membawa_hp":
+											echo $nilai == "true" ? "Setuju" : "Tidak Setuju";
+											break;
+
+										case "persetujuan_asrama":
+											echo $nilai == "true" ? "Setuju" : "Tidak Setuju";
+											break;
+
+										default:
+											echo ucwords($nilai);
+											break;
+									}
+									?>
+								</td>
+							</tr>
+						<?php endforeach ?>
+
+						<?php foreach ($dokumenUpload as $dokumen): ?>
+							<?php $namaBaris = ucfirst(str_replace("_", " ", $dokumen["jenis_dokumen"])) ?>
+
+							<tr>
+								<th>
+									<?= $namaBaris ?>
+								</th>
+
+								<td>:</td>
+
+								<td>
+									<a href="<?= BASE_URL . "assets/uploads/" . $dokumen["path_dokumen"] ?>" target="__blank">
+										Klik disini untuk melihat gambar
+									</a>
+								</td>
+							</tr>
+						<?php endforeach ?>
+					</table>
+				<?php endforeach ?>
+			<?php else: ?>
+				<div class="riwayat-card">
+					<!--  -->
+				</div>
+			<?php endif ?>
+		</div>
 	</div>
 
 
 	<?php include_once __DIR__ . "/../components/layouts/footer.php" ?>
-
 </body>

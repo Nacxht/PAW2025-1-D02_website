@@ -75,17 +75,17 @@ function tambahFormPendaftaranService(
         );
 
         $stmt->execute([
-            ":id_calon_siswa" => $idCalonSiswa,
-            ":id_jurusan" => $idJurusan,
-            ":id_program" => $idProgram,
-            ":nama_lengkap" => $namaLengkap,
-            ":nik" => $nik,
-            ":jenis_kelamin" => $jenisKelamin,
-            ":tempat_lahir" => $tempatLahir,
-            ":tanggal_lahir" => $tanggalLahir,
-            ":asal_sekolah" => $asalSekolah,
-            ":persetujuan_tidak_membawa_hp" => $persetujuanHp,
-            ":persetujuan_asrama" => $persetujuanAsrama
+            ":id_calon_siswa" => htmlspecialchars($idCalonSiswa),
+            ":id_jurusan" => htmlspecialchars($idJurusan),
+            ":id_program" => htmlspecialchars($idProgram),
+            ":nama_lengkap" => htmlspecialchars($namaLengkap),
+            ":nik" => htmlspecialchars($nik),
+            ":jenis_kelamin" => htmlspecialchars($jenisKelamin),
+            ":tempat_lahir" => htmlspecialchars($tempatLahir),
+            ":tanggal_lahir" => htmlspecialchars($tanggalLahir),
+            ":asal_sekolah" => htmlspecialchars($asalSekolah),
+            ":persetujuan_tidak_membawa_hp" => htmlspecialchars($persetujuanHp),
+            ":persetujuan_asrama" => htmlspecialchars($persetujuanAsrama)
         ]);
 
         // mengambil id dari data yang baru dimasukkan
@@ -142,8 +142,7 @@ function tambahFormPendaftaranService(
         header("Location: " . BASE_URL . "calon_siswa/riwayat_pendaftaran.php");
         exit();
     } catch (Exception $error) {
-        var_dump($error->getMessage());
-        die();
+        die("Terdapat masalah pada server");
     }
 }
 
@@ -157,7 +156,7 @@ function daftarFormPendaftaranService(string $namaCalonSiswa)
     try {
         // 
     } catch (Exception $error) {
-        // 
+        die("Terdapat masalah pada server");
     }
 }
 
@@ -172,7 +171,7 @@ function detailFormPendaftaranService(int $id)
     try {
         // 
     } catch (Exception $error) {
-        // 
+        die("Terdapat masalah pada server");
     }
 }
 
@@ -188,7 +187,7 @@ function suntingFormPendaftaranService(array $data, int $id)
     try {
         // 
     } catch (Exception $error) {
-        // 
+        die("Terdapat masalah pada server");
     }
 }
 
@@ -203,20 +202,81 @@ function hapusFormPendaftaranService(int $id)
     try {
         // 
     } catch (Exception $error) {
-        //
+        die("Terdapat masalah pada server");
     }
 }
 
 /**
  * Fungsi untuk menampilkan riwayat pendaftaran dari pendaftar
  * 
+ * Fungsi ini tidak mengembalikan informasi dari dokumen yang diupload,
+ * hal ini terjadi dikarenakan tidak memungkinkan.
+ * 
  * @param int $idCalonSiswa - ID dari calon siswa
  */
 function daftarRiwayatPendaftaran(int $idCalonSiswa)
 {
     try {
-        // 
+        $stmt = DBH->prepare(
+            "SELECT
+                fp.id_form_pendaftaran,
+                fp.nama_lengkap,
+                fp.nik,
+                fp.jenis_kelamin,
+                fp.tempat_lahir,
+                fp.tanggal_lahir,
+                fp.asal_sekolah,
+                fp.persetujuan_tidak_membawa_hp,
+                fp.persetujuan_asrama,
+                date(fp.created_at) tanggal_pendaftaran,
+                j.nama_jurusan,
+                p.nama_program,
+                fp.status
+            FROM
+                form_pendaftaran fp
+            JOIN
+                jurusan j ON fp.id_jurusan = j.id_jurusan
+            JOIN
+                program p ON fp.id_program = p.id_program
+            WHERE
+                fp.id_calon_siswa = :id_calon_siswa"
+        );
+
+        $stmt->execute([":id_calon_siswa" => $idCalonSiswa]);
+        return $stmt->fetchAll();
+        exit();
     } catch (Exception $error) {
-        // 
+        die("Terdapat masalah pada server");
+    }
+}
+
+/**
+ * Fungsi untuk menampilkan daftar dokumen yang diupload berdasarkan
+ * ID dari form pendaftaran
+ * 
+ * @param int $idFormPendaftaran - ID dari form pendaftaran
+ */
+function daftarRiwayatUploadDokumen(int $idFormPendaftaran)
+{
+    try {
+        $stmt = DBH->prepare(
+            "SELECT
+                d.id_dokumen,
+                d.path_dokumen,
+                jd.jenis_dokumen
+            FROM 
+                dokumen d
+            INNER JOIN
+                jenis_dokumen jd ON d.id_jenis_dokumen = jd.id_jenis_dokumen
+            WHERE d.id_form_pendaftaran = :id_form_pendaftaran"
+        );
+
+        $stmt->execute([
+            ":id_form_pendaftaran" => $idFormPendaftaran
+        ]);
+
+        return $stmt->fetchAll();
+    } catch (Exception $error) {
+        die("Terdapat masalah pada server");
     }
 }

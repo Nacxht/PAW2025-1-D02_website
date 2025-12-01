@@ -76,3 +76,50 @@
 }
 
 /*  */
+
+/* riwayat pendaftaran */
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container table {
+    border: 2px solid var(--color-neutral);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container th {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container .tertunda {
+    background: var(--color-warning);
+    color: var(--color-warning-text);
+    border: 1px solid var(--color-warning-text);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container .diterima {
+    background: var(--color-success);
+    color: var(--color-success-text);
+    border: 1px solid var(--color-success-text);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container .ditolak {
+    background: var(--color-warning);
+    border: 1px solid var(--color-error-text);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.container#calon-siswa-riwayat-pendaftaran .riwayat-container a {
+    color: var(--color-info);
+}
+
+/*  */
