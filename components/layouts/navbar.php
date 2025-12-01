@@ -16,7 +16,7 @@ require_once __DIR__ . "/../../config.php";
                 <?php else: ?>
                     <li><a href="<?= BASE_URL ?>">Beranda</a></li>
                     <li><a href="<?= BASE_URL . "calon_siswa/form_pendaftaran.php" ?>">Form Pendaftaran</a></li>
-                    <li><a href="<?= BASE_URL . "calon_siswa/riwayat_pendaftaran" ?>">Riwayat Pendaftaran</a></li>
+                    <li><a href="<?= BASE_URL . "calon_siswa/riwayat_pendaftaran.php" ?>">Riwayat Pendaftaran</a></li>
                 <?php endif ?>
             <?php endif ?>
         </ul>
