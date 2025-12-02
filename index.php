@@ -58,7 +58,7 @@ session_start();
 
         <div id="vision-mission">
             <div class="school-vision">
-                <div class="title">Visi</div class="title">
+                <div class="title">Visi</div>
 
                 <hr class="divider">
 
@@ -73,7 +73,7 @@ session_start();
             </div>
 
             <div class="school-mission">
-                <div class="title">Misi</div class="title">
+                <div class="title">Misi</div>
 
                 <hr class="divider">
 
