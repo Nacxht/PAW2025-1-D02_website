@@ -203,7 +203,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
             </div>
 
             <div class="input-container tanggal-lahir">
-                <label for="tanggal-lahir">Tanggal Lahir</label>
+                <label for="tanggal-lahir">Tanggal Lahir (HH/BB/TTTT)</label>
                 <input type="text" name="tanggal-lahir" id="tanggal-lahir" value="<?= $tanggalLahir ?? "" ?>">
 
                 <!-- Menampilkan error -->
