@@ -13,6 +13,14 @@ if (!isset($_GET["id"]) || !isset($_GET["role"])) {
     exit();
 }
 
+/**
+ * Pengaman jika yang disunting adalah admin (selain dirinya sendiri)
+ */
+if ($role == "admin" && $id != $_SESSION["id_user"]) {
+    header("Location: " . BASE_URL . "admin/akun");
+    exit();
+}
+
 $id = $_GET["id"];
 $role = $_GET["role"];
 

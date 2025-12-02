@@ -98,20 +98,32 @@ $users = getUsersService($role, $username);
                             </td>
 
                             <td class="table-action-column">
-                                <!-- Tombol yang mengarahkan ke halaman sunting menggunakan method GET -->
-                                <a href="<?= BASE_URL . "admin/akun/sunting.php?id=" . urlencode($user["id_user"]) . "&role=" . urlencode($user["role"]) ?>" class="btn btn-info">
-                                    Sunting
-                                </a>
+                                <!-- Tombol untuk mengarahkan user ke halaman sunting akun -->
+                                <?php if ($user["role"] != "admin" || $user["id_user"] == $_SESSION["id_user"]): ?>
+                                    <!-- Jika user tersebut bukanlah admin atau dirinya sendiri -->
+                                    <a href="<?= BASE_URL . "admin/akun/sunting.php?id=" . urlencode($user["id_user"]) . "&role=" . urlencode($user["role"]) ?>" class="btn btn-info">
+                                        Sunting
+                                    </a>
+                                <?php else: ?>
+                                    <!-- Jika user tersebut adalah admin, dan bukan dirinya sendiri -->
+                                    <button type="button" class="btn" disabled>
+                                        Sunting
+                                    </button>
+                                <?php endif ?>
 
                                 <!-- 
                                     Kondisi untuk menyembunyikan tombol hapus ketika data tersebut adalah
                                     miliknya sendiri, atau ketika data tersebut memiliki role "admin"
                                  -->
-                                <?php if (($user["id_user"] != $_SESSION["id_user"]) || $user["role"] == "admin"): ?>
+                                <?php if (($user["id_user"] != $_SESSION["id_user"]) && $user["role"] != "admin"): ?>
                                     <!-- Tombol yang mengarahkan ke halaman hapus -->
                                     <a href="<?= BASE_URL . "admin/akun/hapus.php?id=" . urlencode($user["id_user"]) . "&role=" . urlencode($user["role"]) ?>" class="btn btn-error">
                                         Hapus
                                     </a>
+                                <?php else: ?>
+                                    <button type="button" class="btn" disabled>
+                                        Hapus
+                                    </button>
                                 <?php endif ?>
                             </td>
                         </tr>

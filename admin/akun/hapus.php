@@ -20,7 +20,7 @@ $role = $_GET["role"];
  * Jika role yang dihapus adalah admin, maka kembalikan user
  * ke halaman daftar akun
  */
-if (!isset($role)) {
+if ($role == "admin") {
     header("Location: " . BASE_URL . "admin/akun");
     exit();
 }
