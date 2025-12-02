@@ -44,6 +44,9 @@ function tambahFormPendaftaranService(
     // Path atau jalur dari folder untuk menyimpan file upload
     $pathUpload = __DIR__ . "/../assets/uploads/";
 
+    // Konversi ke DATETIME
+    $tanggalLahir = new DateTime($tanggalLahir);
+
     // Membuat folder upload jika belum tersedia
     if (!is_dir($pathUpload)) {
         $hasil = mkdir($pathUpload, 0755, true);
@@ -89,7 +92,7 @@ function tambahFormPendaftaranService(
                 )"
         );
 
-        // Mengeksekusi query
+        // Mengeksekusi query, konversi datetime agar valid di mysql
         $stmt->execute([
             ":id_calon_siswa" => $idCalonSiswa,
             ":id_jurusan" => $idJurusan,
@@ -98,7 +101,7 @@ function tambahFormPendaftaranService(
             ":nik" => $nik,
             ":jenis_kelamin" => $jenisKelamin,
             ":tempat_lahir" => $tempatLahir,
-            ":tanggal_lahir" => $tanggalLahir,
+            ":tanggal_lahir" => date_format($tanggalLahir, "Y-m-d"),
             ":asal_sekolah" => $asalSekolah,
             ":persetujuan_tidak_membawa_hp" => $persetujuanHp,
             ":persetujuan_asrama" => $persetujuanAsrama
@@ -153,7 +156,7 @@ function tambahFormPendaftaranService(
         header("Location: " . BASE_URL . "calon_siswa/riwayat_pendaftaran.php");
         exit();
     } catch (Exception $error) {
-        die("Terdapat masalah pada server");
+        die("Terdapat masalah pada server" . $error->getMessage());
     }
 }
 
