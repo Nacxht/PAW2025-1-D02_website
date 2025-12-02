@@ -356,3 +356,35 @@ table.data-table .data-empty {
 }
 
 /*  */
+
+/* popup */
+.pop-up-container {
+    border: 2px solid var(--color-neutral);
+    border-radius: 10px;
+    padding: 2rem;
+    justify-content: center;
+    display: grid;
+    gap: 1rem;
+    width: fit-content;
+    justify-self: center;
+}
+
+.pop-up-container p {
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.pop-up-container .divider {
+    width: 100%;
+    margin: 0;
+}
+
+.pop-up-container .btn-container {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/*  */
