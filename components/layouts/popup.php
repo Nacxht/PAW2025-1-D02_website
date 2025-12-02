@@ -4,12 +4,15 @@
  * Fungsi untuk menampilkan popup penghapusan data
  * 
  * @param string $urlKembali - URL untuk tombol kembali
+ * @param string $pesan - Pesan kustom untuk ditampilkan
  */
-function popupHapus(string $urlKembali)
+function popupHapus(string $urlKembali, string $pesan = "")
 {
+    $pesan = $pesan ? $pesan : "Apakah anda yakin ingin menghapus data ini?";
+
     echo '<form action="" method="post" class="pop-up-container">
             <p class="popup-message">
-                Apakah anda yakin ingin menghapus data ini?
+                ' . $pesan . '
             </p>
 
             <hr class="divider">
@@ -29,16 +32,21 @@ function popupHapus(string $urlKembali)
 
 /**
  * Fungsi untuk menampilkan popup pemberitahuan
+ * 
+ * @param string $urlKembali - URL untuk tombol kembali
+ * @param string $pesan - Pesan kustom untuk ditampilkan
  */
-function popupPemberitahuan(string $urlKembali, string $pemberitahuan)
+function popupPemberitahuan(string $urlKembali, string $pesan)
 {
-    echo '<div class="popup-container">
-            <p>' . $pemberitahuan . '</p>
+    echo '<div class="pop-up-container">
+            <p class="popup-message">' . $pesan . '</p>
 
             <hr class="divider">
             
-            <a href="' . BASE_URL . $urlKembali . '">
-                Kembali ke halaman sebelumnya
-            </a>
+            <div class="btn-container">
+                <a href="' . BASE_URL . $urlKembali . '" class="btn btn-info">
+                    Kembali ke halaman sebelumnya
+                </a>
+            </div>
         </div>';
 }

@@ -4,6 +4,9 @@ require_once __DIR__ . "/../../auth_middleware/before_login_middleware.php";
 require_once __DIR__ . "/../../services/jurusan_service.php";
 require_once __DIR__ . "/../../components/layouts/popup.php";
 
+// Menentukan popup
+$popupError = false;
+
 /**
  * Pengaman jika tidak terdapat request GET yang membawa ID
  * dari jurusan yang akan dihapus
@@ -28,9 +31,13 @@ if (!$jurusan) {
 
 // Melakukan proses penghapusan jurusan
 if (isset($_POST["konfirmasi-hapus"])) {
-    hapusJurusanService($id);
-    header("Location: " . BASE_URL . "admin/jurusan");
-    exit();
+    try {
+        hapusJurusanService($id);
+        header("Location: " . BASE_URL . "admin/jurusan");
+        exit();
+    } catch (Exception $error) {
+        $popup = true;
+    }
 }
 ?>
 
@@ -46,7 +53,11 @@ if (isset($_POST["konfirmasi-hapus"])) {
 
 <body>
     <div class="container">
-        <?php popupHapus("admin/jurusan") ?>
+        <?php if (!$popupError): ?>
+            <?php popupHapus("admin/jurusan") ?>
+        <?php else: ?>
+            <?php popupPemberitahuan("admin/jurusan", "Tidak dapat menghapus jurusan, terdapat form pendaftaran yang memiliki relasi dengan data ini") ?>
+        <?php endif ?>
     </div>
 </body>
 

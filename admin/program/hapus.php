@@ -6,6 +6,9 @@ require_once __DIR__ . "/../../validators/program_validator.php";
 require_once __DIR__ . "/../../services/program_service.php";
 require_once __DIR__ . "/../../components/layouts/popup.php";
 
+// Menentukan popup
+$popupError = false;
+
 /**
  * Pengaman jika tidak terdapat request GET yang membawa
  * ID dari program yang akan dihapus
@@ -30,9 +33,13 @@ if (!$program) {
 
 // Melakukan proses hapus
 if (isset($_POST["konfirmasi-hapus"])) {
-    hapusProgramService($id);
-    header("Location: " . BASE_URL . "admin/program");
-    exit();
+    try {
+        hapusProgramService($id);
+        header("Location: " . BASE_URL . "admin/program");
+        exit();
+    } catch (Exception $error) {
+        $popupError = true;
+    }
 }
 ?>
 
@@ -48,7 +55,11 @@ if (isset($_POST["konfirmasi-hapus"])) {
 
 <body>
     <div class="container">
-        <?php popupHapus("admin/program") ?>
+        <?php if (!$popupError): ?>
+            <?php popupHapus("admin/program") ?>
+        <?php else: ?>
+            <?php popupPemberitahuan("admin/program", "Tidak dapat menghapus program, terdapat form pendaftaran yang memiliki relasi dengan data ini") ?>
+        <?php endif ?>
     </div>
 </body>
 

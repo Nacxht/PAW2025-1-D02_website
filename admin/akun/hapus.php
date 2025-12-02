@@ -72,7 +72,7 @@ if (isset($_POST["konfirmasi-hapus"])) {
 
 <body>
     <div class="container">
-        <?php popupHapus("admin/akun") ?>
+        <?php popupHapus("admin/akun", "Apakah anda yakin ingin menghapus data ini? Ini akan menghapus data yang memiliki keterkaitan dengan user") ?>
     </div>
 </body>
 

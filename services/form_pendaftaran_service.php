@@ -41,6 +41,20 @@ function tambahFormPendaftaranService(
     string $persetujuanHp,
     array $files,
 ) {
+    // Path atau jalur dari folder untuk menyimpan file upload
+    $pathUpload = __DIR__ . "/../assets/uploads/";
+
+    // Membuat folder upload jika belum tersedia
+    if (!is_dir($pathUpload)) {
+        $hasil = mkdir($pathUpload, 0755, true);
+
+        if (!$hasil) {
+            die("Fatal Error: Gagal membuat folder upload");
+        }
+    } else if (!is_writable($pathUpload)) {
+        die("Fatal Error: Folder upload tidak dapat ditulis");
+    }
+
     try {
         // Query untuk memasukkan data (selain file)
         $stmt = DBH->prepare(
@@ -92,20 +106,6 @@ function tambahFormPendaftaranService(
 
         // Mengambil id dari data yang terakhir kali dimasukkan
         $idFormPendaftaranBaru = DBH->lastInsertId();
-
-        // Path atau jalur dari folder untuk menyimpan file upload
-        $pathUpload = __DIR__ . "/../assets/uploads/";
-
-        // Membuat folder upload jika belum tersedia
-        if (!is_dir($pathUpload)) {
-            $hasil = mkdir($pathUpload, 0755, true);
-
-            if (!$hasil) {
-                die("Fatal Error: Gagal membuat folder upload");
-            }
-        } else if (is_writable($pathUpload)) {
-            die("Fatal Error: Folder upload tidak dapat ditulis");
-        }
 
         // Melakukan proses pemindahan untuk setiap file yang diupload
         foreach ($files as $namaKey => $file) {
