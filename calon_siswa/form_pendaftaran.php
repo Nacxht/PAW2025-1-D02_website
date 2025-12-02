@@ -127,7 +127,7 @@ if (isset($_POST['submit-form-pendaftaran'])) {
         <hr class="divider">
 
         <!-- Form yang berisi input-input untuk formulir pendaftaran -->
-        <form action="" method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             <div class="input-container nama-lengkap">
                 <label for="nama-lengkap">Nama Lengkap</label>
                 <input type="text" name="nama-lengkap" id="nama-lengkap" value="<?= $namaLengkap ?? "" ?>">

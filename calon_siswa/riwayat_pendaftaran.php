@@ -9,7 +9,7 @@ $daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_us
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
 	<!-- Memasukkan konfigurasi head -->
@@ -96,7 +96,7 @@ $daftarRiwayatFormPendaftaran = daftarRiwayatPendaftaranService($_SESSION["id_us
 								<td>:</td>
 
 								<td>
-									<a href="<?= BASE_URL . "assets/uploads/" . $dokumen["path_dokumen"] ?>" target="__blank">
+									<a href="<?= BASE_URL . "assets/uploads/" . $dokumen["path_dokumen"] ?>" target="_blank">
 										Klik disini untuk melihat gambar
 									</a>
 								</td>

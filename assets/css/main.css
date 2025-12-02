@@ -342,12 +342,14 @@ table.data-table {
 table.data-table th,
 table.data-table td {
     padding: 0.5rem;
+    height: 5rem;
 }
 
 table.data-table .table-action-column {
     display: flex;
     gap: 0.5rem;
     justify-content: center;
+    align-items: center;
 }
 
 table.data-table .data-empty {

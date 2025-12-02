@@ -92,7 +92,7 @@ if (isset($_POST["user-edit"])) {
         <hr class="divider">
 
         <!-- Form untuk melakukan penyuntingan akun -->
-        <form action="" method="post" class="user-account-form">
+        <form method="post" class="user-account-form">
             <!-- Input username -->
             <div class="input-container">
                 <label for="username">Username</label>

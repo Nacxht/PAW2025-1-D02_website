@@ -51,7 +51,7 @@ if (isset($_POST["tambah-program"])) {
         <hr class="divider">
 
         <!-- Form yang berisi input-input untuk melakukan proses tambah program -->
-        <form action="" method="post" class="create-update">
+        <form method="post" class="create-update">
             <div class="input-container">
                 <label for="nama-program">Nama Program</label>
                 <input type="text" name="nama-program" id="nama-program" value="<?= $namaProgram ?? "" ?>">

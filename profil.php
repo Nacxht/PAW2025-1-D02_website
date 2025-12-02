@@ -72,7 +72,7 @@ $user = getUserByID($_SESSION["id_user"], $_SESSION["role"]);
 
             <div class="buttons-container">
                 <!-- Form yang berisi tombol untuk mengubah mode edit/lihat -->
-                <form action="" method="post" id="edit">
+                <form method="post" id="edit">
                     <?php if (!$isEdit): ?>
                         <button type="submit" class="btn btn-info" name="profile-edit">
                             Sunting Profil

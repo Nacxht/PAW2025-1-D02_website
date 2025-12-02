@@ -50,7 +50,7 @@ if (isset($_POST["add-major"])) {
         <hr class="divider">
 
         <!-- Form yang berisi input untuk menambah data jurusan baru -->
-        <form action="" method="post">
+        <form method="post">
             <div class="input-container">
                 <label for="nama-jurusan">Nama Jurusan</label>
                 <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $majorName ?? "" ?>">

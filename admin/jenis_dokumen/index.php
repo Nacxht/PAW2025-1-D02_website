@@ -43,7 +43,7 @@ if (isset($_GET["jenis-dokumen-filter"])) {
             </a>
 
             <!-- Form untuk melakukan filter berdasarkan nama jenis dokumen -->
-            <form action="" method="get">
+            <form method="get">
                 <div class="input-container">
                     <label for="jenis-dokumen">Nama Jenis Dokumen</label>
                     <input type="text" name="jenis-dokumen" id="jenis-dokumen" value="<?= $jenisDokumen ?? '' ?>">

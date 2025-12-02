@@ -153,7 +153,7 @@ if (isset($_POST["tolak-form-pendaftaran"])) {
 
                     <td>
                         <!-- Hyperlink yang mengarahkan pengguna untuk menampilkan gambar -->
-                        <a href="<?= BASE_URL . "assets/uploads/" . $dokumen["path_dokumen"] ?>" target="__blank">
+                        <a href="<?= BASE_URL . "assets/uploads/" . $dokumen["path_dokumen"] ?>" target="_blank">
                             Klik disini untuk melihat gambar
                         </a>
                     </td>
@@ -161,9 +161,9 @@ if (isset($_POST["tolak-form-pendaftaran"])) {
             <?php endforeach ?>
 
             <tr>
-                <td colspan="3">
+                <td colspan="2">
                     <!-- Form untuk menangani apakah form pendaftaran diterima/ditolak (Verifikasi) -->
-                    <form action="" method="post" class="button-container">
+                    <form method="post" class="button-container">
                         <button type="submit" class="btn btn-success" name="terima-form-pendaftaran">
                             Terima Form Pendaftaran
                         </button>

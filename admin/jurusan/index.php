@@ -49,7 +49,7 @@ if (isset($_POST["nama-jurusan"])) {
             </a>
 
             <!-- Form untuk melakukan filter jurusan -->
-            <form action="" method="post" class="filter">
+            <form method="post" class="filter">
                 <div class="input-container">
                     <label for="nama-jurusan">Nama Jurusan</label>
                     <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $namaJurusan ?? '' ?>">

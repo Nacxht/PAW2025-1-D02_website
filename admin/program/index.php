@@ -48,7 +48,7 @@ if (isset($_GET["nama-program"])) {
             </a>
 
             <!-- Form untuk melakukan filter program berdasarkan namanya -->
-            <form action="" method="get">
+            <form method="get">
                 <div class="input-container">
                     <label for="nama-program">Nama program</label>
                     <input type="text" name="nama-program" id="nama-program" value="<?= htmlspecialchars($_GET["nama-program"] ?? '') ?>">

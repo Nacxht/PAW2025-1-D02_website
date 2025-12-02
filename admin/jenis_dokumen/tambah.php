@@ -48,7 +48,7 @@ if (isset($_POST["tambah-jenis-dokumen"])) {
         <hr class="divider">
 
         <!-- Form yang berisi input untuk menambah jenis dokumen -->
-        <form action="" method="post" class="create-update">
+        <form method="post" class="create-update">
             <div class="input-container">
                 <label for="nama-jenis-dokumen">Nama Jenis Dokumen</label>
                 <input type="text" name="nama-jenis-dokumen" id="nama-jenis-dokumen" value="<?= $namaJenisDokumen ?? "" ?>">

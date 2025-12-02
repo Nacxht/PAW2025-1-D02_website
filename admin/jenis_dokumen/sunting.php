@@ -74,7 +74,7 @@ if (isset($_POST["sunting-jenis-dokumen"])) {
         <hr class="divider">
 
         <!-- Form yang berisi input-input untuk menyunting jenis dokumen -->
-        <form action="" method="post" class="create-update">
+        <form method="post" class="create-update">
             <div class="input-container">
                 <label for="nama-jenis-dokumen">Nama Jenis Dokumen</label>
                 <input type="text" name="nama-jenis-dokumen" id="nama-jenis-dokumen" value="<?= $jenisDokumen["jenis_dokumen"] ?>">

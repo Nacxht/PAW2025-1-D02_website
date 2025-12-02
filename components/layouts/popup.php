@@ -10,7 +10,7 @@ function popupHapus(string $urlKembali, string $pesan = "")
 {
     $pesan = $pesan ? $pesan : "Apakah anda yakin ingin menghapus data ini?";
 
-    echo '<form action="" method="post" class="pop-up-container">
+    echo '<form  method="post" class="pop-up-container">
             <p class="popup-message">
                 ' . $pesan . '
             </p>

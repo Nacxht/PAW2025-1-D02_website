@@ -80,7 +80,7 @@ if (isset($_POST["sunting-program"])) {
         <hr class="divider">
 
         <!-- Form yang berisi input-input untuk melakkukan proses sunting -->
-        <form action="" method="post" class="create-update">
+        <form method="post" class="create-update">
             <div class="input-container">
                 <label for="nama-program">Nama Program</label>
                 <input type="text" name="nama-program" id="nama-program" value="<?= $program["nama_program"] ?>">

@@ -1,5 +1,5 @@
 <!-- Form yang berisi input-input untuk profil / sunting profil (tergantung modenya) -->
-<form action="" method="post">
+<form method="post">
     <div class="inputs">
         <div class="input-container">
             <label for="username">Username</label>

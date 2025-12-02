@@ -78,7 +78,7 @@ if (isset($_POST["sunting-jurusan"])) {
         <hr class="divider">
 
         <!-- Form yang berisi input-input untuk melakukan sunting -->
-        <form action="" method="post">
+        <form method="post">
             <div class="input-container">
                 <label for="nama-jurusan">Nama Jurusan</label>
                 <input type="text" name="nama-jurusan" id="nama-jurusan" value="<?= $jurusan["nama_jurusan"] ?>">

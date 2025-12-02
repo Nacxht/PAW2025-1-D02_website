@@ -37,7 +37,7 @@ $users = getUsersService($role, $username);
         <hr class="divider">
 
         <!-- Form untuk melakukan filter/pencarian -->
-        <form action="" method="get" class="filter">
+        <form method="get" class="filter">
             <!-- Input filter username -->
             <div class="input-container">
                 <label for="username">Username</label>
